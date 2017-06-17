@@ -1,0 +1,48 @@
+.login-overlay, .login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #263238;
+}
+
+.login {
+  border: 1px solid #37474F;
+  background-color: #37474F;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  max-width: 523px;
+}
+
+.login-detail {
+  text-align: center;
+}
+
+.login-form {
+  text-align: right;
+  margin: 10px;
+}
+
+.login-input {
+  color: black;
+  margin-left: 10px;
+}
+
+.submit-button {
+  background-color: #263238;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  text-align: left;
+}

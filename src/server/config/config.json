@@ -1,0 +1,18 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "rare12",
+    "database": "hssealed-dev",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "rare12",
+    "database": "hssealed-test",
+    "host": "localhost",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}

@@ -1,0 +1,73 @@
+$border: 5px solid black;
+$nav-color: #263238;
+
+.main-app, .top-nav, .sealed-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.main-app, .sealed-nav {
+  height: 100vh;
+  width: 100vw;
+}
+
+.main-app {
+  flex-direction: column;
+}
+
+.top-nav {
+  height: 10vh;
+  width: 100vw;
+  align-items: center;
+  background-color: $nav-color;
+  border-bottom: $border;
+
+  .title {
+    flex-grow: 1;
+    margin: 0 10px;
+  }
+
+  .account {
+    margin-right: 60px;
+  }
+}
+
+.sealed-nav {
+  flex-grow: 1;
+
+  .sealed-app, .side-nav, .draft-nav {
+    display: flex;
+    height: 100%;
+  }
+
+  .sealed-app {
+    flex-direction: column;
+    flex-grow: 1;
+
+    .main-sealed, .graph-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: $border;
+      border-right: $border;
+    }
+
+    .main-sealed {
+      flex-grow: 1;
+      background-color: #37474F;
+      border-bottom: $border;
+    }
+
+    .graph-nav {
+      height: 15vh;
+      background-color: $nav-color;
+    }
+  }
+
+  .side-nav, .draft-nav {
+    width: 15vw;
+    background-color: $nav-color;
+    align-items: center;
+    justify-content: center;
+  }
+}

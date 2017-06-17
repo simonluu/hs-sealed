@@ -1,0 +1,42 @@
+{
+  "name": "hssealed",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.15.3",
+    "font-awesome": "^4.7.0",
+    "morgan": "^1.8.2",
+    "passport": "^0.3.2",
+    "pg": "^6.2.4",
+    "pg-hstore": "^2.3.2",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "react-modal": "^2.0.2",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
+    "redux-persist": "^4.8.0",
+    "sequelize": "^4.1.0"
+  },
+  "devDependencies": {
+    "node-sass-chokidar": "0.0.3",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "dev": "nodemon ./src/server/index.js",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:8080"
+}

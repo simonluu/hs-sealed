@@ -1,0 +1,49 @@
+.main-app, .top-nav, .sealed-nav {
+  display: flex;
+  justify-content: center; }
+
+.main-app, .sealed-nav {
+  height: 100vh;
+  width: 100vw; }
+
+.main-app {
+  flex-direction: column; }
+
+.top-nav {
+  height: 10vh;
+  width: 100vw;
+  align-items: center;
+  background-color: #263238;
+  border-bottom: 5px solid black; }
+  .top-nav .title {
+    flex-grow: 1;
+    margin: 0 10px; }
+  .top-nav .account {
+    margin-right: 60px; }
+
+.sealed-nav {
+  flex-grow: 1; }
+  .sealed-nav .sealed-app, .sealed-nav .side-nav, .sealed-nav .draft-nav {
+    display: flex;
+    height: 100%; }
+  .sealed-nav .sealed-app {
+    flex-direction: column;
+    flex-grow: 1; }
+    .sealed-nav .sealed-app .main-sealed, .sealed-nav .sealed-app .graph-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: 5px solid black;
+      border-right: 5px solid black; }
+    .sealed-nav .sealed-app .main-sealed {
+      flex-grow: 1;
+      background-color: #37474F;
+      border-bottom: 5px solid black; }
+    .sealed-nav .sealed-app .graph-nav {
+      height: 15vh;
+      background-color: #263238; }
+  .sealed-nav .side-nav, .sealed-nav .draft-nav {
+    width: 15vw;
+    background-color: #263238;
+    align-items: center;
+    justify-content: center; }
