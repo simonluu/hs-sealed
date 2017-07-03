@@ -10,16 +10,15 @@ module.exports = {
       })
       .then(user => {
         if (!user){
-          User.create({
+          return User.create({
             username: req.body.username,
             password: req.body.password,
-          })
-          .then(newUser => res.status(201).send(newUser))
-          .catch(error => res.status(400).send(error));
+          });
         } else {
           res.status(200).send({ error: 'Username already exists.' });
         }
       })
+      .then(() => res.status(204).send())
       .catch(error => res.status(400).send(error));
   },
   get(req, res) {
@@ -31,6 +30,7 @@ module.exports = {
         }
       })
       .then(user => {
+        console.log('get', user)
         if (user) {
           res.status(200).send(user);
         } else {
