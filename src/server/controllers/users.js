@@ -18,7 +18,7 @@ module.exports = {
           res.status(200).send({ error: 'Username already exists.' });
         }
       })
-      .then(() => res.status(204).send())
+      .then(() => res.status(200).send())
       .catch(error => res.status(400).send(error));
   },
   get(req, res) {
@@ -30,7 +30,6 @@ module.exports = {
         }
       })
       .then(user => {
-        console.log('get', user)
         if (user) {
           res.status(200).send(user);
         } else {

@@ -4,11 +4,12 @@ const todoItemsController = require('../controllers').todoItems;
 
 module.exports = (app) => {
   // Login API Calls
-  app.post('/login', userController.get);
+  app.post('/api/login', userController.get);
 
   // Signup API Calls
-  app.post('/signup', userController.create);
-  app.get('/getall', userController.getAll);
+  app.post('/api/signup', userController.create);
+  // Don't really need a get all users...
+  // app.get('/api/getall', userController.getAll);
 
 	app.post('/api/todos', todosController.create);
   app.get('/api/todos', todosController.list);

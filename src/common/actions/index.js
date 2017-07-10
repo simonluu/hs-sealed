@@ -6,7 +6,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const ON_UNMOUNT = 'ON_UNMOUNT';
 
 export function authenticate(username, password) {
-  const request = axios.post('/login', {
+  const request = axios.post('/api/login', {
     username,
     password,
   }).then((response) => {
@@ -22,7 +22,7 @@ export function authenticate(username, password) {
 }
 
 export function createUser(username, password) {
-  const request = axios.post('/signup', {
+  const request = axios.post('/api/signup', {
     username,
     password,
   }).then((response) => {

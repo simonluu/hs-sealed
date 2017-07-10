@@ -39,6 +39,10 @@
       flex-grow: 1;
       background-color: #37474F;
       border-bottom: 5px solid black; }
+      .sealed-nav .sealed-app .main-sealed .pack-drop {
+        height: 600px;
+        width: 649px;
+        background-image: url(../images/bg.jpg); }
     .sealed-nav .sealed-app .graph-nav {
       height: 15vh;
       background-color: #263238; }
@@ -47,3 +51,75 @@
     background-color: #263238;
     align-items: center;
     justify-content: center; }
+  .sealed-nav .pack-list {
+    height: 100%;
+    width: 15vw;
+    padding: 8px;
+    overflow-y: auto; }
+    .sealed-nav .pack-list .pack {
+      height: 212px;
+      width: 155px; }
+    .sealed-nav .pack-list .adventure {
+      width: 142px; }
+    .sealed-nav .pack-list .pack-counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 37px;
+      width: 23px;
+      position: relative;
+      left: 110px;
+      background-image: url(../images/pack-counter.png);
+      user-select: none; }
+    .sealed-nav .pack-list #basic {
+      background-image: url(../images/basic-pack.png); }
+    .sealed-nav .pack-list #classic {
+      background-image: url(../images/classic-pack.png); }
+    .sealed-nav .pack-list #naxx {
+      height: 129px;
+      background-image: url(../images/naxx-adventure.png); }
+      .sealed-nav .pack-list #naxx .pack-counter {
+        top: 5px;
+        left: 100px; }
+    .sealed-nav .pack-list #gvg {
+      background-image: url(../images/gvg-pack.png); }
+      .sealed-nav .pack-list #gvg .pack-counter {
+        top: 8px;
+        left: 105px; }
+    .sealed-nav .pack-list #brm {
+      height: 141px;
+      background-image: url(../images/brm-adventure.png); }
+      .sealed-nav .pack-list #brm .pack-counter {
+        top: 7px;
+        left: 100px; }
+    .sealed-nav .pack-list #tgt {
+      background-image: url(../images/tgt-pack.png); }
+      .sealed-nav .pack-list #tgt .pack-counter {
+        top: 10px;
+        left: 112px; }
+    .sealed-nav .pack-list #loe {
+      height: 143px;
+      background-image: url("../images/loe-adventure.png"); }
+      .sealed-nav .pack-list #loe .pack-counter {
+        top: 6px;
+        left: 100px; }
+    .sealed-nav .pack-list #wotog {
+      background-image: url(../images/wotog-pack.png); }
+      .sealed-nav .pack-list #wotog .pack-counter {
+        top: 10px;
+        left: 105px; }
+    .sealed-nav .pack-list #karazhan {
+      height: 129px;
+      background-image: url(../images/karazhan-adventure.png); }
+      .sealed-nav .pack-list #karazhan .pack-counter {
+        top: 6px;
+        left: 100px; }
+    .sealed-nav .pack-list #msg {
+      background-image: url(../images/msg-pack.png); }
+      .sealed-nav .pack-list #msg .pack-counter {
+        top: 8px;
+        left: 105px; }
+    .sealed-nav .pack-list #jug {
+      background-image: url(../images/jug-pack.png); }
+      .sealed-nav .pack-list #jug .pack-counter {
+        top: 8px; }

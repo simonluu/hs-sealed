@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 
 import Topnav from './topnav';
+import Draft from './draft';
+import Welcome from './welcome';
+import DraftSettings from './draftsettings';
+import PackDrop from './packdrop';
+import PackList from './packlist';
+import Statistics from './statistics';
 
 import '../../client/styles/Mainapp.css';
 
@@ -10,20 +16,14 @@ class Mainapp extends Component {
       <div className="main-app">
         <Topnav />
         <div className="sealed-nav">
-          <div className="side-nav">
-            LeftNav
-          </div>
+          <PackList />
           <div className="sealed-app">
             <div className="main-sealed">
-              Middle
+              <PackDrop />
             </div>
-            <div className="graph-nav">
-              BottomNav
-            </div>
+            <Statistics />
           </div>
-          <div className="draft-nav">
-            RightNav
-          </div>
+          <Draft />
         </div>
       </div>
     );
