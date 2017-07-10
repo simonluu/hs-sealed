@@ -37,30 +37,42 @@
       border-right: 5px solid black; }
     .sealed-nav .sealed-app .main-sealed {
       flex-grow: 1;
-      background-color: #37474F;
+      background-color: #161213;
       border-bottom: 5px solid black; }
-      .sealed-nav .sealed-app .main-sealed .pack-drop {
+      .sealed-nav .sealed-app .main-sealed .pack-drop, .sealed-nav .sealed-app .main-sealed .pack-glow {
         height: 600px;
-        width: 649px;
+        width: 649px; }
+      .sealed-nav .sealed-app .main-sealed .pack-drop {
         background-image: url(../images/bg.jpg); }
+      .sealed-nav .sealed-app .main-sealed .pack-glow {
+        background-image: url(../images/bg-glow.png); }
+      .sealed-nav .sealed-app .main-sealed .pack-slot {
+        height: 212px;
+        width: 155px; }
     .sealed-nav .sealed-app .graph-nav {
       height: 15vh;
       background-color: #263238; }
   .sealed-nav .side-nav, .sealed-nav .draft-nav {
-    width: 15vw;
     background-color: #263238;
     align-items: center;
     justify-content: center; }
+  .sealed-nav .draft-nav {
+    width: 15vw; }
   .sealed-nav .pack-list {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    width: 15vw;
     padding: 8px;
     overflow-y: auto; }
+    .sealed-nav .pack-list .pack, .sealed-nav .pack-list .adventure {
+      flex-shrink: 0; }
     .sealed-nav .pack-list .pack {
       height: 212px;
       width: 155px; }
     .sealed-nav .pack-list .adventure {
       width: 142px; }
+    .sealed-nav .pack-list .pack-name {
+      margin-bottom: 10px; }
     .sealed-nav .pack-list .pack-counter {
       display: flex;
       align-items: center;

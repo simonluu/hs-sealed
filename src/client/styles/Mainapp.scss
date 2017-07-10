@@ -54,13 +54,25 @@ $nav-color: #263238;
 
     .main-sealed {
       flex-grow: 1;
-      background-color: #37474F;
+      background-color: #161213;
       border-bottom: $border;
 
-      .pack-drop {
+      .pack-drop, .pack-glow {
         height: 600px;
-        width: 649px;
+        width: 649px;      
+      }
+
+      .pack-drop {
         background-image: url(../images/bg.jpg);
+      }
+
+      .pack-glow {
+        background-image: url(../images/bg-glow.png);
+      }
+
+      .pack-slot {
+        height: 212px;
+        width: 155px;
       }
     }
 
@@ -71,17 +83,25 @@ $nav-color: #263238;
   }
 
   .side-nav, .draft-nav {
-    width: 15vw;
     background-color: $nav-color;
     align-items: center;
     justify-content: center;
   }
 
-  .pack-list {
-    height: 100%;
+  .draft-nav {
     width: 15vw;
+  }
+
+  .pack-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 8px;
     overflow-y: auto;
+
+    .pack, .adventure {
+      flex-shrink: 0;
+    }
 
     .pack {
       height: 212px;
@@ -90,6 +110,10 @@ $nav-color: #263238;
 
     .adventure {
       width: 142px;
+    }
+
+    .pack-name {
+      margin-bottom: 10px;
     }
 
     .pack-counter {
