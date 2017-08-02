@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const Draft = require('../models').Draft;
 
 module.exports = {
   create(req, res) {
@@ -18,7 +19,7 @@ module.exports = {
           res.status(200).send({ error: 'Username already exists.' });
         }
       })
-      .then(() => res.status(200).send())
+      .then((user) => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },
   get(req, res) {
@@ -42,7 +43,12 @@ module.exports = {
   },
   getAll(req, res) {
     return User
-      .all()
+      .findAll({
+        include: [{
+          model: Draft,
+          as: 'drafts'
+        }],
+      })
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },

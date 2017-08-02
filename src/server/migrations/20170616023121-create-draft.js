@@ -19,13 +19,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      draftId: {
+      userId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
           key: 'id',
-          as: 'draftId',
+          as: 'userId',
         },
       },
     }),

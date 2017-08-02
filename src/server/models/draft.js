@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Draft.associate = (models) => {
     Draft.belongsTo(models.User, {
-      foreignKey: 'draftId',
+      foreignKey: 'userId',
       onDelete: 'CASCADE',
     });
   }

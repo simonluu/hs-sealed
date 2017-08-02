@@ -23,7 +23,7 @@
 
 .sealed-nav {
   flex-grow: 1; }
-  .sealed-nav .sealed-app, .sealed-nav .side-nav, .sealed-nav .draft-nav {
+  .sealed-nav .sealed-app, .sealed-nav .side-nav {
     display: flex;
     height: 100%; }
   .sealed-nav .sealed-app {
@@ -58,6 +58,8 @@
     justify-content: center; }
   .sealed-nav .draft-nav {
     width: 15vw; }
+    .sealed-nav .draft-nav .tab-link {
+      display: inline-block; }
   .sealed-nav .pack-list {
     display: flex;
     flex-direction: column;

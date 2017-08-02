@@ -35,7 +35,7 @@ $nav-color: #263238;
 .sealed-nav {
   flex-grow: 1;
 
-  .sealed-app, .side-nav, .draft-nav {
+  .sealed-app, .side-nav {
     display: flex;
     height: 100%;
   }
@@ -90,6 +90,10 @@ $nav-color: #263238;
 
   .draft-nav {
     width: 15vw;
+
+    .tab-link {
+      display: inline-block;
+    }
   }
 
   .pack-list {
