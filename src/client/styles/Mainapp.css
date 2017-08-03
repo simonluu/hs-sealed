@@ -29,20 +29,31 @@
   .sealed-nav .sealed-app {
     flex-direction: column;
     flex-grow: 1; }
-    .sealed-nav .sealed-app .main-sealed, .sealed-nav .sealed-app .graph-nav {
+    .sealed-nav .sealed-app .welcome-sealed, .sealed-nav .sealed-app .main-sealed, .sealed-nav .sealed-app .draft-settings, .sealed-nav .sealed-app .graph-nav {
       display: flex;
       align-items: center;
       justify-content: center;
       border-left: 5px solid black;
       border-right: 5px solid black; }
-    .sealed-nav .sealed-app .main-sealed {
+    .sealed-nav .sealed-app .welcome-sealed, .sealed-nav .sealed-app .main-sealed, .sealed-nav .sealed-app .draft-settings {
+      position: relative;
       flex-grow: 1;
-      background-color: #161213;
       border-bottom: 5px solid black; }
+    .sealed-nav .sealed-app .welcome-sealed, .sealed-nav .sealed-app .draft-settings {
+      background-color: #263238;
+      flex-direction: column; }
+    .sealed-nav .sealed-app .main-sealed {
+      background-color: #161213; }
       .sealed-nav .sealed-app .main-sealed .pack-drop, .sealed-nav .sealed-app .main-sealed .pack-glow {
-        height: 600px;
-        width: 649px; }
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center; }
       .sealed-nav .sealed-app .main-sealed .pack-drop {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-image: url(../images/bg.jpg); }
       .sealed-nav .sealed-app .main-sealed .pack-glow {
         background-image: url(../images/bg-glow.png); }
@@ -58,8 +69,15 @@
     justify-content: center; }
   .sealed-nav .draft-nav {
     width: 15vw; }
+    .sealed-nav .draft-nav .new-draft-button, .sealed-nav .draft-nav .draft-tabs {
+      display: flex;
+      justify-content: center; }
     .sealed-nav .draft-nav .tab-link {
-      display: inline-block; }
+      display: inline-block;
+      margin: 0 5px; }
+    .sealed-nav .draft-nav .draft-options {
+      display: none;
+      margin-left: 20px; }
   .sealed-nav .pack-list {
     display: flex;
     flex-direction: column;

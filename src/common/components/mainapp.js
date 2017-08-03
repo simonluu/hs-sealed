@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Topnav from './topnav';
-import Draft from './draft';
+import DraftList from './draftlist';
 import Welcome from './welcome';
 import DraftSettings from './draftsettings';
 import PackDrop from './packdrop';
@@ -11,23 +12,37 @@ import Statistics from './statistics';
 import '../../client/styles/Mainapp.css';
 
 class Mainapp extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    let centerApp;
+    if (this.props.app.draftState === "drafting") {
+      centerApp = <PackDrop />;
+    } else if (this.props.app.draftState === "pre-draft") {
+      centerApp = <DraftSettings />;
+    } else {
+      centerApp = <Welcome />;
+    }
     return (
       <div className="main-app">
         <Topnav />
         <div className="sealed-nav">
           <PackList />
           <div className="sealed-app">
-            <div className="main-sealed">
-              <PackDrop />
-            </div>
+            {centerApp}
             <Statistics />
           </div>
-          <Draft />
+          <DraftList />
         </div>
       </div>
     );
   }
 }
 
-export default Mainapp;
+function mapStateToProps(state) {
+  return { app: state.app };
+}
+
+export default connect(mapStateToProps)(Mainapp);

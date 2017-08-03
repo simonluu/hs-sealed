@@ -16,6 +16,12 @@ module.exports = (app) => {
   app.post('/api/create-draft', draftController.create);
   app.get('/api/drafts/:userId/:draftId', draftController.get);
   app.get('/api/drafts/:userId', draftController.getAll);
+  app.delete('/api/drafts/:userId/:draftId', draftController.destroy);
+
+  // app.all('/api/drafts/:userId', (req, res) =>
+  //   res.status(405).send({
+  //     message: 'Method Not Allowed',
+  //   }));
 
 	app.post('/api/todos', todosController.create);
   app.get('/api/todos', todosController.list);

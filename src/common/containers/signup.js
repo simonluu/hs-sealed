@@ -72,7 +72,6 @@ class Signup extends Component {
         </div>
       );
     }
-    console.log(this.props.authenticated)
     return (
       <ReactModal isOpen={true} contentLabel="Signup Modal" overlayClassName="signup-overlay" className="signup">
         <div className="signup-container">

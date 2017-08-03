@@ -5,9 +5,13 @@ export const CREATE_USER = 'CREATE_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const ON_UNMOUNT = 'ON_UNMOUNT';
 
-export const CREATE_DRAFT = 'CREATE_DRAFT';
+export const DRAFT_STATE = 'DRAFT_STATE';
 
-// User actions
+export const RETRIEVE_DRAFTS = 'RETRIEVE_DRAFTS';
+export const CREATE_DRAFT = 'CREATE_DRAFT';
+export const DELETE_DRAFT = 'DELETE_DRAFT';
+
+// User Login/Signup actions
 export function authenticate(username, password) {
   const request = axios.post('/api/login', {
     username,
@@ -43,29 +47,44 @@ export function createUser(username, password) {
 export function logOut() {
   return {
     type: LOG_OUT,
-    payload: { auth: false, error: null },
+    payload: {},
   }
 }
 
 export function onUnmount() {
+  // This is for Signup/Login unmounts
   return {
     type: ON_UNMOUNT,
     payload: { auth: false, error: null },
   }
 }
 
+// Main Application Actions
+export function setDraftState(state) {
+  return {
+    type: DRAFT_STATE,
+    payload: state,
+  }
+}
+
 // Draft actions
-export function createDraft(name, userId) {
-  axios.post('/api/create-draft', {
-    name,
-    userId,
-  }).then((response) => {
+export function retrieveDrafts(userId) {
+  const request = axios.get(`/api/drafts/${userId}`)
+  .then((response) => {
     return response;
   }).catch((error) => {
     throw error;
   });
 
-  const request = axios.get(`/api/drafts/${userId}`, {
+  return {
+    type: RETRIEVE_DRAFTS,
+    payload: request,
+  }
+}
+export function createDraft(name, format, userId) {
+  const request = axios.post('/api/create-draft', {
+    name,
+    format,
     userId,
   }).then((response) => {
     return response;
@@ -75,6 +94,20 @@ export function createDraft(name, userId) {
 
   return {
     type: CREATE_DRAFT,
+    payload: request,
+  }
+}
+
+export function deleteDraft(draftId, userId) {
+  const request = axios.delete(`/api/drafts/${userId}/${draftId}`)
+  .then((response) => {
+    return response;
+  }).catch((error) => {
+    throw error;
+  });
+
+  return {
+    type: DELETE_DRAFT,
     payload: request,
   }
 }

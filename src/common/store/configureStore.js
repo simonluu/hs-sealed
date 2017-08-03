@@ -11,7 +11,7 @@ const configureStore = () => {
     applyMiddleware(Async),
   );
 
-  persistStore(store, { blacklist: ['authenticated'] });
+  persistStore(store, { blacklist: ['authenticated', 'app'] });
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

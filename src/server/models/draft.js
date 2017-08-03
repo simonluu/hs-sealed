@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    format: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 
   Draft.associate = (models) => {
