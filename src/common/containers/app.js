@@ -6,7 +6,7 @@ import requireAuth from '../containers/require_authentication';
 
 import Signup from './signup';
 import Login from './login';
-import MainApp from '../components/mainapp';
+import MainApp from './mainapp';
 
 import '../../client/styles/App.css';
 

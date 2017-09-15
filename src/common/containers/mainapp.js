@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 import Topnav from './topnav';
 import DraftList from './draftlist';
 import Welcome from './welcome';
 import DraftSettings from './draftsettings';
-import PackDrop from './packdrop';
+import PackDrop from '../components/packdrop';
 import PackList from './packlist';
-import Statistics from './statistics';
+import Statistics from '../components/statistics';
 
 import '../../client/styles/Mainapp.css';
 
@@ -28,9 +30,8 @@ class Mainapp extends Component {
     return (
       <div className="main-app">
         <Topnav />
-        <div className="sealed-nav">
-          <PackList />
-          <div className="sealed-app">
+        <div className="sealed-app">
+          <div className="sealed-main">
             {centerApp}
             <Statistics />
           </div>
@@ -45,4 +46,4 @@ function mapStateToProps(state) {
   return { app: state.app };
 }
 
-export default connect(mapStateToProps)(Mainapp);
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps)(Mainapp));

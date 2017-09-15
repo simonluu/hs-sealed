@@ -1,12 +1,20 @@
 $border: 5px solid black;
 $nav-color: #263238;
 
-.main-app, .top-nav, .sealed-nav {
+// html {
+//   overflow: auto;
+// }
+
+// body {
+//   overflow-y: scroll;
+// }
+
+.main-app, .top-nav, .sealed-app {
   display: flex;
   justify-content: center;
 }
 
-.main-app, .sealed-nav {
+.main-app, .sealed-app {
   height: 100vh;
   width: 100vw;
 }
@@ -32,15 +40,15 @@ $nav-color: #263238;
   }
 }
 
-.sealed-nav {
+.sealed-app {
   flex-grow: 1;
 
-  .sealed-app, .side-nav {
+  .sealed-main, .side-nav {
     display: flex;
     height: 100%;
   }
 
-  .sealed-app {
+  .sealed-main {
     flex-direction: column;
     flex-grow: 1;
 
@@ -48,12 +56,10 @@ $nav-color: #263238;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-left: $border;
       border-right: $border;
     }
 
     .welcome-sealed, .main-sealed, .draft-settings {
-      position: relative;
       flex-grow: 1;
       border-bottom: $border;
     }
@@ -64,10 +70,11 @@ $nav-color: #263238;
     }
 
     .main-sealed {
+      height: 100%;
+      border-left: $border;
       background-color: #161213;
 
       .pack-drop, .pack-glow {
-        position: absolute;
         height: 100%;
         width: 100%;
         background-repeat: no-repeat;
@@ -88,6 +95,176 @@ $nav-color: #263238;
       .pack-slot {
         height: 212px;
         width: 155px;
+      }
+
+      .pack-list {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 8px;
+        overflow-y: auto;
+
+        .expansion-wrapper {
+          position: relative;
+          width: 155px;
+          height: 271px;
+          z-index: 103;
+
+          .pack-wrapper {
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 212px;
+            z-index: 100;
+
+            .pack, .pack-next, .adventure, .adventure-next {
+              flex-shrink: 0;
+            }
+
+            .pack, .pack-next {
+              height: 212px;
+              width: 155px;
+            }
+
+            .adventure,.adventure-next {
+              width: 142px;
+            }
+
+            .pack, .adventure {
+              position:relative;
+              z-index: 102;
+            }
+
+            .pack-next, .adventure-next {
+              position: absolute;
+              top: 0;
+              left: 0;
+              z-index: 101;
+            }
+
+            .pack-counter {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 37px;
+              width: 23px;
+              position: absolute;
+              z-index: 102;
+              top: 0;
+              left: 110px;
+              background-image: url(../images/pack-counter.png);
+              user-select: none;
+            }
+
+            .pack-drag {
+
+            }
+
+            .pack-name {
+              margin-bottom: 10px;
+            }
+
+            #basic {
+              background-image: url(../images/basic-pack.png);
+            }
+
+            #classic {
+              background-image: url(../images/classic-pack.png);
+            }
+
+            #naxx {
+              height: 129px;
+              background-image: url(../images/naxx-adventure.png);
+
+              .pack-counter {
+                top: 5px;
+                left: 100px;
+              }
+            }
+
+            #gvg {
+              background-image: url(../images/gvg-pack.png);
+
+              .pack-counter {
+                top: 8px;
+                left: 105px;
+              }
+            }
+
+            #brm {
+              height: 141px;
+              background-image: url(../images/brm-adventure.png);
+
+              .pack-counter {
+                top: 7px;
+                left: 100px;
+              }
+            }
+
+            #tgt {
+              background-image: url(../images/tgt-pack.png);
+
+              .pack-counter {
+                top: 10px;
+                left: 112px;
+              }
+            }
+
+            #loe {
+              height: 143px;
+              background-image: url('../images/loe-adventure.png');
+
+              .pack-counter {
+                top: 6px;
+                left: 100px;
+              }
+            }
+
+            #wotog {
+              background-image: url(../images/wotog-pack.png);
+
+              .pack-counter {
+                top: 10px;
+                left: 105px;
+              }
+            }
+
+            #karazhan {
+              height: 129px;
+              background-image: url(../images/karazhan-adventure.png);
+
+              .pack-counter {
+                top: 6px;
+                left: 100px;
+              }
+            }
+
+            #msg {
+              background-image: url(../images/msg-pack.png);
+
+              .pack-counter {
+                top: 8px;
+                left: 105px;
+              }
+            }
+
+            #jug {
+              background-image: url(../images/jug-pack.png);
+
+              .pack-counter {
+                top: 8px;
+              }
+            }
+
+            #kft {
+              background-image: url(../images/kft-pack.png);
+
+              .pack-counter {
+                top: 8px;
+              }
+            }
+          }
+        }
       }
     }
 
@@ -121,133 +298,20 @@ $nav-color: #263238;
       margin-left: 20px;
     }
   }
+}
 
-  .pack-list {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 8px;
-    overflow-y: auto;
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-    .pack, .adventure {
-      flex-shrink: 0;
-    }
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
 
-    .pack {
-      height: 212px;
-      width: 155px;
-    }
-
-    .adventure {
-      width: 142px;
-    }
-
-    .pack-name {
-      margin-bottom: 10px;
-    }
-
-    .pack-counter {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 37px;
-      width: 23px;
-      position: relative;
-      left: 110px;
-      background-image: url(../images/pack-counter.png);
-      user-select: none;
-    }
-
-    #basic {
-      background-image: url(../images/basic-pack.png);
-    }
-
-    #classic {
-      background-image: url(../images/classic-pack.png);
-    }
-
-    #naxx {
-      height: 129px;
-      background-image: url(../images/naxx-adventure.png);
-
-      .pack-counter {
-        top: 5px;
-        left: 100px;
-      }
-    }
-
-    #gvg {
-      background-image: url(../images/gvg-pack.png);
-
-      .pack-counter {
-        top: 8px;
-        left: 105px;
-      }
-    }
-
-    #brm {
-      height: 141px;
-      background-image: url(../images/brm-adventure.png);
-
-      .pack-counter {
-        top: 7px;
-        left: 100px;
-      }
-    }
-
-    #tgt {
-      background-image: url(../images/tgt-pack.png);
-
-      .pack-counter {
-        top: 10px;
-        left: 112px;
-      }
-    }
-
-    #loe {
-      height: 143px;
-      background-image: url('../images/loe-adventure.png');
-
-      .pack-counter {
-        top: 6px;
-        left: 100px;
-      }
-    }
-
-    #wotog {
-      background-image: url(../images/wotog-pack.png);
-
-      .pack-counter {
-        top: 10px;
-        left: 105px;
-      }
-    }
-
-    #karazhan {
-      height: 129px;
-      background-image: url(../images/karazhan-adventure.png);
-
-      .pack-counter {
-        top: 6px;
-        left: 100px;
-      }
-    }
-
-    #msg {
-      background-image: url(../images/msg-pack.png);
-
-      .pack-counter {
-        top: 8px;
-        left: 105px;
-      }
-    }
-
-    #jug {
-      background-image: url(../images/jug-pack.png);
-
-      .pack-counter {
-        top: 8px;
-      }
-    }
-  }
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #6d6d6d;
 }

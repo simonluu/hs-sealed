@@ -15,6 +15,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      state: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      packs: {
+        type: Sequelize.ARRAY(Sequelize.JSON),
+        allowNull: false,
+      },
+      cards: {
+        type: Sequelize.ARRAY(Sequelize.JSON),
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

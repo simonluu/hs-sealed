@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, FormControl, FormGroup, Radio } from 'react-bootstrap';
 
-import { createDraft } from '../actions';
+import { createDraft, setDraftState, setTabState } from '../actions';
 
 class DraftSettings extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class DraftSettings extends Component {
   startDraft() {
     this.setState({ error: "" });
     if (this.state.name.length !== 0 && this.state.format.length !== 0) {
-      this.props.createDraft(this.state.name, this.state.format, this.props.userId);
+      this.props.createDraft(this.state.name, this.state.format, "drafting", [], this.props.userId);
     } else {
       this.setState({ error: "Please enter a name and set a format" });
     }
@@ -40,7 +40,7 @@ class DraftSettings extends Component {
     return (
       <div className="draft-settings">
         <h2>Create a Draft</h2>
-        <div>You will open 60 packs from all the different expansions depending on your selections below.</div>
+        <div>You will open 80-90 packs from all the different expansions depending on your selections below.</div>
         <form>
           <FormGroup>
             <FormControl type="text" value={this.state.name} placeholder="Draft Name" onChange={(e) => this.nameChange(e)} />
@@ -65,4 +65,4 @@ function mapStateToProps(state) {
   return { userId: state.userInfo.userId };
 }
 
-export default connect(mapStateToProps, { createDraft })(DraftSettings);
+export default connect(mapStateToProps, { createDraft, setDraftState, setTabState })(DraftSettings);

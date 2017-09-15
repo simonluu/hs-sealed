@@ -6,9 +6,12 @@ module.exports = {
       .create({
         name: req.body.name,
         format: req.body.format,
+        state: req.body.state,
+        cards: req.body.cards,
+        packs: req.body.packs,
         userId: req.body.userId,
       })
-      .then(draft => res.status(201).send(draft))
+      .then(draft => res.status(200).send(draft))
       .catch(error => res.status(400).send(error));
   },
   get(req, res) {

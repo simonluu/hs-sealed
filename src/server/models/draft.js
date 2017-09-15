@@ -8,6 +8,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    packs: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      allowNull: false,
+    },
+    cards: {
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      allowNull: false,
+    },
   });
 
   Draft.associate = (models) => {

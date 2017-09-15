@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
+import PackList from '../containers/packlist';
+import PackSlot from './packslot';
+
 class PackDrop extends Component {
   render() {
     return (
       <div className="main-sealed">
+        <PackList />
         <div className="pack-drop">
-          <div className="pack-slot"></div>
+          <PackSlot />
         </div>
-        <div className="pack-glow"></div>
+        {false ? <div className="pack-glow"></div> : null}
       </div>
     );
   }
