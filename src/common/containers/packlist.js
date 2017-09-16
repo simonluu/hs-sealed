@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Pack from '../components/pack';
+import { packGrab, packDrop } from '../../client/soundExports';
 
 const packNames = [
   { type: 'basic', name: 'Basic', expansion: 'pack' },
@@ -18,11 +18,14 @@ const packNames = [
   { type: 'kft', name: 'Knights of the Frozen Throne', expansion: 'pack' },
 ];
 
+let setDragTimer;
+
 class PackList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      packName: "",
       x_pos: 0,
       y_pos: 0,
     }
@@ -32,55 +35,143 @@ class PackList extends Component {
   }
 
   componentDidMount() {
-    console.log(this.refs)
-    const pack = this.refs["classic-pack"];
-    pack.draggable()
-    // $(`#${pack.id}`).draggable()
+    for (let index in packNames) {
+      const displayPack = this.refs[`${packNames[index].type}-pack`];
+      if (displayPack !== undefined) {
+        let packTop = displayPack.getBoundingClientRect().top;
+        let packLeft = displayPack.getBoundingClientRect().left;
 
-    // console.log(pack.style)
+        displayPack.addEventListener("mousedown", this.onMouseDown);
 
-    pack.addEventListener("mousedown", this.onMouseDown);
+        (function(currentThis) {
+          window.addEventListener("mouseup", function(e) {
+            if (e.target.id === packNames[index].type && e.which === 1) {
+              window.removeEventListener("mousemove", currentThis.movePack);
 
-    window.addEventListener("mouseup", () => {
-      window.removeEventListener("mousemove", this.movePack);
+              currentThis.props.changeOnDrag(false);
 
-      pack.style.zIndex = "102";
-      pack.style.top = "0px";
-      pack.style.left = "0px";
-      pack.style.transition = "all 1s ease 0s";
-      // pack.style.position = "relative";
-    });
+              const packList = currentThis.refs["pack-list"];
+              const clone = currentThis.refs["clone"];
+
+              displayPack.style.display = "block";
+
+              if (true) {
+                // grab cards
+                packDrop.volume = .3;
+                packDrop.play();
+              } else {
+                if (clone) {
+                  packList.style.overflowY = "hidden";
+                  clone.style.transition = "all 1s ease 0s";
+                  setDragTimer = setTimeout(() => {
+                    packList.style.overflowY = "auto";
+                    clone.style.display = "none";
+                    currentThis.setState({ packName: "" });
+                  }, 1000)
+                }
+              }
+
+              clone.style.zIndex = "102";
+              clone.style.top = packTop + "px";
+              clone.style.left = packLeft + "px";
+            }
+          });
+        }(this));
+      }
+    }
   }
 
-  componentWillUnmount() {
-    const pack = this.refs["classic-pack"];
+  // componentDidUpdate() {
+  //   const packList = this.refs["pack-list"];
+  //   if (packList.scrollTop > 0) {
+  //     for (let index in packNames) {
+  //       const displayPack = this.refs[`${packNames[index].type}-pack`];
+  //       if (displayPack !== undefined) {
+  //         let packTop = displayPack.getBoundingClientRect().top + packList.scrollTop;
+  //         let packLeft = displayPack.getBoundingClientRect().left;
+  //         console.log(displayPack.getBoundingClientRect().top, packList.scrollTop)
 
-    pack.removeEventListener("mousedown", this.onMouseDown);
+  //         displayPack.addEventListener("mousedown", this.onMouseDown);
+
+  //         (function(currentPack) {
+  //           window.addEventListener("mouseup", function(e) {
+  //             if (e.target.id === packNames[index].type && e.which === 1) {
+  //               window.removeEventListener("mousemove", currentPack.movePack);
+
+  //               displayPack.style.display = "block";
+
+  //               const clone = currentPack.refs["clone"];
+
+  //               if (clone) {
+  //                 packList.style.overflowY = "hidden";
+  //                 clone.style.zIndex = "102";
+  //                 clone.style.top = packTop + "px";
+  //                 clone.style.left = packLeft + "px";
+  //                 clone.style.transition = "all 1s ease 0s";
+  //                 setDragTimer = setTimeout(() => {
+  //                   packList.style.overflowY = "auto";
+  //                   clone.style.display = "none";
+  //                   currentPack.setState({ packName: "" });
+  //                 }, 1000)
+  //               }
+  //             }
+  //           });
+  //         }(this));
+  //       }
+  //     }
+  //   }
+  // }
+
+  componentWillUnmount() {
+    for (let pack of packNames) {
+      const displayPack = this.refs[`${pack.type}-pack`];
+
+      if (displayPack !== undefined) {
+        clearTimeout(setDragTimer);
+
+        displayPack.removeEventListener("mousedown", this.onMouseDown);
+      }
+    }
   }
 
   onMouseDown(e) {
     e.preventDefault();
-    const pack = this.refs["classic-pack"];
-    // const background = ReactDOM.findDOMNode(this.refs.background);
-    // background.style.opacity = 0;
-    // pack_grab.volume = .3;
-    // pack_grab.play();
-    this.setState({ x_pos: e.clientX - pack.offsetLeft, y_pos: e.clientY - pack.offsetTop });
-    // pack.style.position = "fixed";
-    pack.style.top = (e.clientY - this.state.y_pos) + "px";
-    pack.style.left = (e.clientX - this.state.x_pos) + "px";
-    pack.style.zIndex = "103";
-    pack.style.transform = "none";
-    window.addEventListener("mousemove", this.movePack);
+    if (e.which === 1) {
+      this.props.changeOnDrag(true);
+      const pack = this.refs[`${e.target.id}-pack`];
+      const packTop = pack.getBoundingClientRect().top;
+      const packLeft = pack.getBoundingClientRect().left;
+      pack.style.display = "none";
+
+      const clone = this.refs["clone"];
+      clone.style.display = "block";
+      clone.style.top = packTop + "px";
+      clone.style.left = packLeft + "px";
+
+      packGrab.volume = .3;
+      packGrab.play();
+
+
+      this.setState({ packName: pack.id, x_pos: e.clientX - clone.offsetLeft, y_pos: e.clientY - clone.offsetTop });
+
+      clone.style.top = (e.clientY - this.state.y_pos) + "px";
+      clone.style.left = (e.clientX - this.state.x_pos) + "px";
+      clone.style.zIndex = "103";
+      clone.style.transform = "none";
+      window.addEventListener("mousemove", this.movePack);
+    }
   }
 
   movePack = (e) => {
     e.preventDefault();
-    const pack = this.refs["classic-pack"];
-    console.log(pack)
-    pack.style.transition = "none";
-    pack.style.top = (e.clientY - this.state.y_pos) + "px";
-    pack.style.left = (e.clientX - this.state.x_pos) + "px";
+    // console.log(e)
+    // if (e.screenX < 110) {
+    //   console.log('OUTSIDE')
+    // }
+    const clone = this.refs["clone"];
+    clone.style.transition = "none";
+    clone.style.top = (e.clientY - this.state.y_pos) + "px";
+    clone.style.left = (e.clientX - this.state.x_pos) + "px";
   }
 
   // componentDidUpdate() {
@@ -128,7 +219,6 @@ class PackList extends Component {
         packList.push(
           <div key={data.type} className="expansion-wrapper">
             <div className="pack-wrapper">
-              {/* <Pack data={data} /> */}
               <div id={data.type} ref={`${data.type}-pack`} className={data.expansion + " pack-drag"}></div>
               <div id={data.type} className={data.expansion + "-next"}></div>
               <div className="pack-counter">{data.amount}</div>
@@ -143,8 +233,9 @@ class PackList extends Component {
 
   render() {
     return (
-      <div className="pack-list">
+      <div ref="pack-list" className="pack-list">
         {this.renderPacks()}
+        <div id={this.state.packName} ref="clone" className="clone" />
       </div>
     );
   }
@@ -155,92 +246,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(PackList);
-
-  // componentDidMount() {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   const pack_hole = ReactDOM.findDOMNode(this.refs.pack_hole);
-  //   const background = ReactDOM.findDOMNode(this.refs.background);
-
-  //   pack_hole.style.top = "260px";
-  //   pack_hole.style.left = "707px";
-
-  //   pack.addEventListener('mouseover', this.onMouseOver);
-  //   pack.addEventListener('mouseout', this.onMouseOut);
-
-  //   pack.addEventListener('mousedown', this.onMouseDown);
-
-  //   window.addEventListener('mouseup', () => {
-  //     window.removeEventListener('mousemove', this.movePack);
-  //     background.style.opacity = 1;
-  //     if (parseInt(pack.style.top) > parseInt(pack_hole.style.top) - 10
-  //       && parseInt(pack.style.left) > parseInt(pack_hole.style.top) - 10
-  //       && parseInt(pack.style.top) < parseInt(pack_hole.style.top) + 10
-  //       && parseInt(pack.style.left) < parseInt(pack.style.left) + 10) {
-  //       this.props.fetchCardInformation(ReactDOM.findDOMNode(this.refs.select).value);
-  //       pack.style.pointerEvents = "none";
-  //       // play the pack opening video
-  //       ReactDOM.findDOMNode(this.refs.pack_open).style.display = 'block';
-  //       this.refs.pack_open.play();
-  //       window.setTimeout(this.setVisible, 5000);
-  //     } else {
-  //       // play unselecting pack video
-  //       pack.style.transition = "all 1s ease 0s";
-  //     }
-  //     pack.style.top = "247px";
-  //     pack.style.left = "200px";
-  //   });
-  // }
-
-  // componentDidUpdate() {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   var pointer_event = "";
-  //   if (this.props.visibility.opacity == "0") {
-  //     pointer_event = "auto";
-  //   } else {
-  //     pointer_event = "none";
-  //   }
-  //   pack.style.pointerEvents = pointer_event;
-  // }
-
-  // componentWillUnmount() {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   pack.removeEventListener('mousedown', this.onMouseDown);
-  //   pack.removeEventListener('mouseover', this.onMouseOver);
-  //   pack.removeEventListener('mouseout', this.onMouseOut);
-  // }
-
-  // onMouseOver() {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   pack.style.transform = "scale(1.1)";
-  //   pack.style.transition = "none";
-  // }
-
-  // setVisible() {
-  //   const pack_open = ReactDOM.findDOMNode(this.refs.pack_open);
-  //   pack_open.currentTime = 0;
-  //   pack_open.style.display = 'none';
-  //   this.props.setVisibility({ "opacity": "1", "visible": "visible" });
-  // }
-
-  // onMouseOut() {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   pack.style.transform = "none";
-  // }
-
-  // onMouseDown(e) {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   const background = ReactDOM.findDOMNode(this.refs.background);
-  //   background.style.opacity = 0;
-  //   pack_grab.volume = .3;
-  //   pack_grab.play();
-  //   this.setState({ x_pos: e.clientX - pack.offsetLeft, y_pos: e.clientY - pack.offsetTop });
-  //   pack.style.transform = "none";
-  //   window.addEventListener('mousemove', this.movePack);
-  // }
-
-  // movePack = (e) => {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   pack.style.transition = "none";
-  //   pack.style.top = (e.clientY - this.state.y_pos) + 'px';
-  //   pack.style.left = (e.clientX - this.state.x_pos) + 'px';
-  // }

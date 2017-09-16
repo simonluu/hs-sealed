@@ -103,6 +103,16 @@ $nav-color: #263238;
         height: 100%;
         padding: 8px;
         overflow-y: auto;
+        overflow-x: hidden;
+        width: 500px;
+
+        .clone {
+          position: absolute;
+          height: 212px;
+          width: 155px;
+          display: none;
+          background-image: url(../images/classic-pack.png);
+        }
 
         .expansion-wrapper {
           position: relative;
@@ -156,113 +166,109 @@ $nav-color: #263238;
               user-select: none;
             }
 
-            .pack-drag {
-
-            }
-
             .pack-name {
               margin-bottom: 10px;
             }
+          }
+        }
 
-            #basic {
-              background-image: url(../images/basic-pack.png);
-            }
+        #basic {
+          background-image: url(../images/basic-pack.png);
+        }
 
-            #classic {
-              background-image: url(../images/classic-pack.png);
-            }
+        #classic {
+          background-image: url(../images/classic-pack.png);
+        }
 
-            #naxx {
-              height: 129px;
-              background-image: url(../images/naxx-adventure.png);
+        #naxx {
+          height: 129px;
+          background-image: url(../images/naxx-adventure.png);
 
-              .pack-counter {
-                top: 5px;
-                left: 100px;
-              }
-            }
+          .pack-counter {
+            top: 5px;
+            left: 100px;
+          }
+        }
 
-            #gvg {
-              background-image: url(../images/gvg-pack.png);
+        #gvg {
+          background-image: url(../images/gvg-pack.png);
 
-              .pack-counter {
-                top: 8px;
-                left: 105px;
-              }
-            }
+          .pack-counter {
+            top: 8px;
+            left: 105px;
+          }
+        }
 
-            #brm {
-              height: 141px;
-              background-image: url(../images/brm-adventure.png);
+        #brm {
+          height: 141px;
+          background-image: url(../images/brm-adventure.png);
 
-              .pack-counter {
-                top: 7px;
-                left: 100px;
-              }
-            }
+          .pack-counter {
+            top: 7px;
+            left: 100px;
+          }
+        }
 
-            #tgt {
-              background-image: url(../images/tgt-pack.png);
+        #tgt {
+          background-image: url(../images/tgt-pack.png);
 
-              .pack-counter {
-                top: 10px;
-                left: 112px;
-              }
-            }
+          .pack-counter {
+            top: 10px;
+            left: 112px;
+          }
+        }
 
-            #loe {
-              height: 143px;
-              background-image: url('../images/loe-adventure.png');
+        #loe {
+          height: 143px;
+          background-image: url('../images/loe-adventure.png');
 
-              .pack-counter {
-                top: 6px;
-                left: 100px;
-              }
-            }
+          .pack-counter {
+            top: 6px;
+            left: 100px;
+          }
+        }
 
-            #wotog {
-              background-image: url(../images/wotog-pack.png);
+        #wotog {
+          background-image: url(../images/wotog-pack.png);
 
-              .pack-counter {
-                top: 10px;
-                left: 105px;
-              }
-            }
+          .pack-counter {
+            top: 10px;
+            left: 105px;
+          }
+        }
 
-            #karazhan {
-              height: 129px;
-              background-image: url(../images/karazhan-adventure.png);
+        #karazhan {
+          height: 129px;
+          background-image: url(../images/karazhan-adventure.png);
 
-              .pack-counter {
-                top: 6px;
-                left: 100px;
-              }
-            }
+          .pack-counter {
+            top: 6px;
+            left: 100px;
+          }
+        }
 
-            #msg {
-              background-image: url(../images/msg-pack.png);
+        #msg {
+          background-image: url(../images/msg-pack.png);
 
-              .pack-counter {
-                top: 8px;
-                left: 105px;
-              }
-            }
+          .pack-counter {
+            top: 8px;
+            left: 105px;
+          }
+        }
 
-            #jug {
-              background-image: url(../images/jug-pack.png);
+        #jug {
+          background-image: url(../images/jug-pack.png);
 
-              .pack-counter {
-                top: 8px;
-              }
-            }
+          .pack-counter {
+            top: 8px;
+          }
+        }
 
-            #kft {
-              background-image: url(../images/kft-pack.png);
+        #kft {
+          background-image: url(../images/kft-pack.png);
 
-              .pack-counter {
-                top: 8px;
-              }
-            }
+          .pack-counter {
+            top: 8px;
           }
         }
       }

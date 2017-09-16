@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 
 import Topnav from './topnav';
 import DraftList from './draftlist';
@@ -46,4 +44,4 @@ function mapStateToProps(state) {
   return { app: state.app };
 }
 
-export default DragDropContext(HTML5Backend)(connect(mapStateToProps)(Mainapp));
+export default connect(mapStateToProps)(Mainapp);
