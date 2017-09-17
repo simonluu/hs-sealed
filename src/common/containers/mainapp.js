@@ -24,6 +24,7 @@ class Mainapp extends Component {
       });
       if (packs) {
         // call draftState change
+        // this.props.updateDraftState()
         console.log('change draftState')
       }
     }

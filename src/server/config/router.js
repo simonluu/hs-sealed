@@ -16,10 +16,8 @@ module.exports = (app) => {
   app.post('/api/create-draft', draftController.create);
   app.get('/api/drafts/:userId/:draftId', draftController.get);
   app.get('/api/drafts/:userId', draftController.getAll);
-  app.patch('/api/drafts/update-cards/:userId/:draftId', draftController.updateCards);
+  app.patch('/api/drafts/:userId/:draftId', draftController.update);
   app.patch('/api/drafts/update-state/:userId/:draftId', draftController.updateState);
-  app.patch('/api/drafts/subtract-amount/:userId/:draftId', draftController.subtractAmount);
-  app.patch('/api/drafts/add-amount/:userId/:draftId', draftController.addAmount);
   app.delete('/api/drafts/:userId/:draftId', draftController.destroy);
 
   // app.all('/api/drafts/:userId', (req, res) =>

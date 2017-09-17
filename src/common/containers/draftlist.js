@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import _ from 'lodash';
 
 import { setDraftState, setTabState, retrieveDrafts, retrieveDraft, deleteDraft } from '../actions';
 
@@ -78,6 +79,37 @@ class Draft extends Component {
 
   renderCurrentDraft() {
     const currentDraft = [];
+    const duplicates = {};
+    const unique = [];
+
+    console.log(this.props.packList)
+
+    // count duplicates
+    this.props.packList.map((card) => {
+      if (!duplicates.hasOwnProperty(card.name)) {
+        duplicates[card.name] = 1;
+        unique.push(card);
+      } else {
+        duplicates[card.name] += 1;
+      }
+    });
+
+    unique.map((card, i) => {
+      if (duplicates[card.name] > 1) {
+        currentDraft.push(
+          <div key={i}>
+            {card.name} {duplicates[card.name]}
+          </div>
+        );
+      } else {
+        currentDraft.push(
+          <div key={i}>
+            {card.name}
+          </div>
+        );
+      }
+      return null;
+    })
     return currentDraft;
   }
 
@@ -100,7 +132,7 @@ class Draft extends Component {
 }
 
 function mapStateToProps(state) {
-  return { userId: state.userInfo.userId, drafts: state.userInfo.drafts, tabState: state.app.tabState, draftState: state.app.draftState };
+  return { userId: state.userInfo.userId, drafts: state.userInfo.drafts, tabState: state.app.tabState, draftState: state.app.draftState, packList: state.app.packList };
 }
 
 export default connect(mapStateToProps, { setDraftState, setTabState, retrieveDrafts, retrieveDraft, deleteDraft })(Draft);

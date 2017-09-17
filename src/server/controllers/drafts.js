@@ -53,7 +53,7 @@ module.exports = {
       .then(drafts => res.status(200).send(drafts))
       .catch(error => res.status(400).send(error));
   },
-  updateCards(req, res) {
+  update(req, res) {
     return Draft
       .findOne({
         where: {
@@ -65,9 +65,16 @@ module.exports = {
         if (!draft) {
           return res.status(404).send({ message: 'Draft Not Found' });
         }
-        draft.cards.push(req.body.card)
+        draft.packs.map((data) => {
+          if (data.type === req.body.expansion) {
+            data.amount = data.amount - 1;
+          }
+        });
+        for (let i = 0; i < req.body.cards.length; i++) {
+          draft.cards.push(req.body.cards[i]);
+        }
         return draft
-          .update({ cards: draft.cards })
+          .update({ cards: draft.cards, packs: draft.packs })
           .then(() => res.status(200).send(draft))
           .catch((error) => res.status(400).send(error));
       })
@@ -87,54 +94,6 @@ module.exports = {
         }
         return draft
           .update({ state: req.body.state })
-          .then(() => res.status(200).send(draft))
-          .catch((error) => res.status(400).send(error));
-      })
-      .catch((error) => res.status(400).send(error));
-  },
-  subtractAmount(req, res) {
-    return Draft
-      .findOne({
-        where: {
-          userId: req.params.userId,
-          id: req.params.draftId,
-        }
-      })
-      .then(draft => {
-        if (!draft) {
-          return res.status(404).send({ message: 'Draft Not Found' });
-        }
-        draft.packs.map((data) => {
-          if (data.type === req.body.expansion) {
-            data.amount = data.amount - 1;
-          }
-        });
-        return draft
-          .update({ packs: draft.packs })
-          .then(() => res.status(200).send(draft))
-          .catch((error) => res.status(400).send(error));
-      })
-      .catch((error) => res.status(400).send(error));
-  },
-  addAmount(req, res) {
-    return Draft
-      .findOne({
-        where: {
-          userId: req.params.userId,
-          id: req.params.draftId,
-        }
-      })
-      .then(draft => {
-        if (!draft) {
-          return res.status(404).send({ message: 'Draft Not Found' });
-        }
-        draft.packs.map((data) => {
-          if (data.type === req.body.expansion) {
-            data.amount = data.amount + 1;
-          }
-        });
-        return draft
-          .update({ packs: draft.packs })
           .then(() => res.status(200).send(draft))
           .catch((error) => res.status(400).send(error));
       })

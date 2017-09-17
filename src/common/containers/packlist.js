@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { subtractCounter, addCounter, retrieveCards } from '../actions';
+import { setExpansion, subtractCounter, addCounter, retrieveCards } from '../actions';
 import { packGrab, packDrop } from '../../client/soundExports';
 
 const packNames = [
@@ -65,10 +65,11 @@ class PackList extends Component {
 
                 packList.style.pointerEvents = "none";
 
+                currentThis.props.setExpansion(packNames[index].type);
                 currentThis.props.retrieveCards(packNames[index].name);
               } else {
                 if (clone) {
-                  currentThis.props.addCounter(e.target.id, currentThis.props.userId, currentThis.props.draftId);
+                  currentThis.props.addCounter(e.target.id);
                   packList.style.overflowY = "hidden";
                   clone.style.transition = "all 1s ease 0s";
                 }
@@ -117,7 +118,7 @@ class PackList extends Component {
     })
     if (e.which === 1 && draggable) {
       this.props.changeOnDrag(true);
-      this.props.subtractCounter(e.target.id, this.props.userId, this.props.draftId);
+      this.props.subtractCounter(e.target.id);
       const pack = this.refs[`${e.target.id}-pack`];
       const packTop = pack.getBoundingClientRect().top;
       const packLeft = pack.getBoundingClientRect().left;
@@ -186,4 +187,4 @@ function mapStateToProps(state) {
   return { format: state.app.formatState, packs: state.app.packsState, userId: state.userInfo.userId, draftId: state.userInfo.draftId };
 }
 
-export default connect(mapStateToProps, { subtractCounter, addCounter, retrieveCards })(PackList);
+export default connect(mapStateToProps, { setExpansion, subtractCounter, addCounter, retrieveCards })(PackList);

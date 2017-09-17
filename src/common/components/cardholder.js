@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image } from 'react-bootstrap';
 
-import { resetCardState, addRevealedCards, resetRevealedCards } from '../actions';
+import { resetCardState, updateAmountAndCards, addRevealedCards, resetRevealedCards } from '../actions';
 import cardBack from '../../client/images/classic.png';
 
 class CardHolder extends Component {
@@ -14,7 +14,7 @@ class CardHolder extends Component {
     // sound stuff
 
     document.getElementById(cardId).style.boxShadow = "none";
-    this.props.addRevealedCards();
+    this.props.addRevealedCards(card);
     if (this.props.revealed === 4) {
       doneButton.style.display = "block";
       doneButton.className += " visible";
@@ -33,6 +33,7 @@ class CardHolder extends Component {
       cardList[i].className = "card";
     }
     document.getElementById("pack-list").style.pointerEvents = "auto";
+    this.props.updateAmountAndCards(this.props.exp, this.props.cards, this.props.userId, this.props.draftId);
     this.props.resetRevealedCards();
     this.props.resetCardState();
   }
@@ -93,7 +94,7 @@ class CardHolder extends Component {
 }
 
 function mapStateToProps(state) {
-  return { revealed: state.app.revealed };
+  return { userId: state.userInfo.userId, draftId: state.userInfo.draftId, cards: state.app.cardState, exp: state.app.expState, revealed: state.app.revealed };
 }
 
-export default connect(mapStateToProps, { resetCardState, addRevealedCards, resetRevealedCards })(CardHolder);
+export default connect(mapStateToProps, { resetCardState, updateAmountAndCards, addRevealedCards, resetRevealedCards })(CardHolder);

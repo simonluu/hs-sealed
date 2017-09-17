@@ -27,6 +27,10 @@ class PackDrop extends Component {
     this.setState({ onDrag: bool });
   }
 
+  /* BUG
+      there is some bug where if you first log in and drag a pack it gives error
+  */
+
   render() {
     return (
       <div className="main-sealed">

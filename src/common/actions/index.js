@@ -36,8 +36,10 @@ export const ON_UNMOUNT = 'ON_UNMOUNT';
 
 export const DRAFT_STATE = 'DRAFT_STATE';
 export const TAB_STATE = 'TAB_STATE';
+export const SET_EXP = 'SET_EXP';
 export const SUBTRACT_COUNTER = 'SUBTRACT_COUNTER';
 export const ADD_COUNTER = 'ADD_COUNTER';
+export const UPDATE_COUNTER = 'UPDATE_COUNTER';
 export const FETCH_CARDS = 'FETCH_CARDS';
 export const RESET_CARDS = 'RESET_CARDS';
 export const ADD_REVEALED = 'ADD_REVEALED';
@@ -111,24 +113,31 @@ export function setTabState(state) {
   }
 }
 
-export function subtractCounter(type, userId, draftId) {
-  const request = axios.patch(`/api/drafts/subtract-amount/${userId}/${draftId}`, {
-    expansion: type,
-  }).then((response) => {
-    return response;
-  }).catch((error) => {
-    throw error;
-  });
+export function setExpansion(state) {
+  return {
+    type: SET_EXP,
+    payload: state,
+  }
+}
 
+export function subtractCounter(type) {
   return {
     type: SUBTRACT_COUNTER,
-    payload: request
+    payload: type,
   }
 }
 
-export function addCounter(type, userId, draftId) {
-  const request = axios.patch(`/api/drafts/add-amount/${userId}/${draftId}`, {
+export function addCounter(type) {
+  return {
+    type: ADD_COUNTER,
+    payload: type,
+  }
+}
+
+export function updateAmountAndCards(type, cards, userId, draftId) {
+  const request = axios.patch(`/api/drafts/${userId}/${draftId}`, {
     expansion: type,
+    cards: cards,
   }).then((response) => {
     return response;
   }).catch((error) => {
@@ -136,20 +145,21 @@ export function addCounter(type, userId, draftId) {
   });
 
   return {
-    type: ADD_COUNTER,
-    payload: request
+    type: UPDATE_COUNTER,
+    payload: request,
   }
 }
 
-export function addRevealedCards() {
+export function addRevealedCards(card) {
   return {
-    type: ADD_REVEALED
+    type: ADD_REVEALED,
+    payload: card,
   }
 }
 
 export function resetRevealedCards() {
   return {
-    type: RESET_REVEALED
+    type: RESET_REVEALED,
   }
 }
 
@@ -164,13 +174,13 @@ export function retrieveCards(expansion) {
   
   return {
     type: FETCH_CARDS,
-    payload: request
+    payload: request,
   };
 }
 
 export function resetCardState() {
   return {
-    type: RESET_CARDS
+    type: RESET_CARDS,
   }
 }
 
