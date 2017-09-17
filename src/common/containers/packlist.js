@@ -68,7 +68,7 @@ class PackList extends Component {
                 currentThis.props.retrieveCards(packNames[index].name);
               } else {
                 if (clone) {
-                  currentThis.props.addCounter(e.target.id);
+                  currentThis.props.addCounter(e.target.id, currentThis.props.userId, currentThis.props.draftId);
                   packList.style.overflowY = "hidden";
                   clone.style.transition = "all 1s ease 0s";
                 }
@@ -113,10 +113,11 @@ class PackList extends Component {
       if (e.target.id === data.type && data.amount > 0) {
         draggable = true;
       }
+      return null;
     })
     if (e.which === 1 && draggable) {
       this.props.changeOnDrag(true);
-      this.props.subtractCounter(e.target.id);
+      this.props.subtractCounter(e.target.id, this.props.userId, this.props.draftId);
       const pack = this.refs[`${e.target.id}-pack`];
       const packTop = pack.getBoundingClientRect().top;
       const packLeft = pack.getBoundingClientRect().left;
@@ -182,7 +183,7 @@ class PackList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { format: state.app.formatState, packs: state.app.packsState };
+  return { format: state.app.formatState, packs: state.app.packsState, userId: state.userInfo.userId, draftId: state.userInfo.draftId };
 }
 
 export default connect(mapStateToProps, { subtractCounter, addCounter, retrieveCards })(PackList);

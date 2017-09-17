@@ -45,22 +45,24 @@ function AuthReducer(state = { auth: false, error: null }, action) {
   }
 }
 
-function UserReducer(state = { userId: null, drafts: [] }, action) {
+function UserReducer(state = { userId: null, draftId: null, drafts: [] }, action) {
   switch(action.type) {
     case CHANGE_AUTH:
     case CREATE_USER:
       if (!action.payload.data.error) {
-        return Object.assign({}, state, { userId: action.payload.data.id, drafts: [] });
+        return Object.assign({}, state, { userId: action.payload.data.id, draftId: null, drafts: [] });
       }
       return null;
     case RETRIEVE_DRAFTS:
       return Object.assign({}, state, { drafts: action.payload.data });
+    case RETRIEVE_DRAFT:
+      return Object.assign({}, state, { draftId: action.id });
     case CREATE_DRAFT:
-      return Object.assign({}, state, { drafts: [ ...state.drafts, action.payload.data ] });
+      return Object.assign({}, state, { draftId: action.payload.data.id, drafts: [ ...state.drafts, action.payload.data ] });
     case DELETE_DRAFT:
-      return Object.assign({}, state, { drafts: action.payload.data });
+      return Object.assign({}, state, { draftId: null, drafts: action.payload.data });
     case LOG_OUT:
-      return Object.assign({}, state, { userId: null, drafts: [] });
+      return Object.assign({}, state, { userId: null, draftId: null, drafts: [] });
     default:
       return state;
   }
@@ -79,9 +81,9 @@ function applicationReducer(state = { draftState: null, tabState: false, formatS
     case TAB_STATE:
       return Object.assign({}, state, { tabState: action.payload });
     case SUBTRACT_COUNTER:
-      return Object.assign({}, state, { packsState: state.packsState.map((data) => data.type === action.payload ? { ...data, amount: data.amount - 1 } : data) });
+      return Object.assign({}, state, { packsState: action.payload.data.packs });
     case ADD_COUNTER:
-      return Object.assign({}, state, { packsState: state.packsState.map((data) => data.type === action.payload ? { ...data, amount: data.amount + 1 } : data) });
+      return Object.assign({}, state, { packsState: action.payload.data.packs });
     case FETCH_CARDS:
       const cards = fetchCardsHelper(action.payload.data);
       return Object.assign({}, state, { cardState: cards });
@@ -92,7 +94,7 @@ function applicationReducer(state = { draftState: null, tabState: false, formatS
     case RESET_REVEALED:
       return Object.assign({}, state, { revealed: 0 });
     case LOG_OUT:
-      return Object.assign({}, state, { draftState: null, tabState: false, formatState: null, packsState: [] });
+      return Object.assign({}, state, { draftState: null, tabState: false, formatState: null, packsState: [], cardState: [], revealed: 0 });
     default:
       return state;
   }

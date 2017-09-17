@@ -111,17 +111,33 @@ export function setTabState(state) {
   }
 }
 
-export function subtractCounter(type) {
+export function subtractCounter(type, userId, draftId) {
+  const request = axios.patch(`/api/drafts/subtract-amount/${userId}/${draftId}`, {
+    expansion: type,
+  }).then((response) => {
+    return response;
+  }).catch((error) => {
+    throw error;
+  });
+
   return {
     type: SUBTRACT_COUNTER,
-    payload: type
+    payload: request
   }
 }
 
-export function addCounter(type) {
+export function addCounter(type, userId, draftId) {
+  const request = axios.patch(`/api/drafts/add-amount/${userId}/${draftId}`, {
+    expansion: type,
+  }).then((response) => {
+    return response;
+  }).catch((error) => {
+    throw error;
+  });
+
   return {
     type: ADD_COUNTER,
-    payload: type
+    payload: request
   }
 }
 
@@ -184,6 +200,7 @@ export function retrieveDraft(userId, draftId) {
   return {
     type: RETRIEVE_DRAFT,
     payload: request,
+    id: draftId,
   }
 }
 
