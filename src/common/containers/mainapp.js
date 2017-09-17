@@ -6,14 +6,27 @@ import DraftList from './draftlist';
 import Welcome from './welcome';
 import DraftSettings from './draftsettings';
 import PackDrop from '../components/packdrop';
-import PackList from './packlist';
 import Statistics from '../components/statistics';
 
 import '../../client/styles/Mainapp.css';
 
 class Mainapp extends Component {
-  constructor(props) {
-    super(props);
+  componentDidUpdate() {
+    if (this.props.app.draftState !== "decking") {
+      let packs = false;
+      this.props.app.packsState.map((data) => {
+        if (data.amount === 0) {
+          packs = true;
+        } else {
+          packs = false;
+        }
+        return null;
+      });
+      if (packs) {
+        // call draftState change
+        console.log('change draftState')
+      }
+    }
   }
 
   render() {

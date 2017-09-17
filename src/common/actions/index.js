@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+const config = {
+  headers: { 'X-Mashape-Key': 'i4BEtXsQLXmshazvYZg0HYAGEEoWp1weej2jsnSvQVWvOhknjd'}
+};
+
 const standard = [
   { type: 'basic', name: 'Basic', expansion: 'pack', amount: 15 },
   { type: 'classic', name: 'Classic', expansion: 'pack', amount: 10 },
@@ -32,6 +36,12 @@ export const ON_UNMOUNT = 'ON_UNMOUNT';
 
 export const DRAFT_STATE = 'DRAFT_STATE';
 export const TAB_STATE = 'TAB_STATE';
+export const SUBTRACT_COUNTER = 'SUBTRACT_COUNTER';
+export const ADD_COUNTER = 'ADD_COUNTER';
+export const FETCH_CARDS = 'FETCH_CARDS';
+export const RESET_CARDS = 'RESET_CARDS';
+export const ADD_REVEALED = 'ADD_REVEALED';
+export const RESET_REVEALED = 'RESET_REVEALED';
 
 export const RETRIEVE_DRAFTS = 'RETRIEVE_DRAFTS';
 export const RETRIEVE_DRAFT = 'RETRIEVE_DRAFT';
@@ -78,8 +88,8 @@ export function logOut() {
   }
 }
 
+// This is for Signup/Login unmounts
 export function onUnmount() {
-  // This is for Signup/Login unmounts
   return {
     type: ON_UNMOUNT,
     payload: { auth: false, error: null },
@@ -98,6 +108,53 @@ export function setTabState(state) {
   return {
     type: TAB_STATE,
     payload: state,
+  }
+}
+
+export function subtractCounter(type) {
+  return {
+    type: SUBTRACT_COUNTER,
+    payload: type
+  }
+}
+
+export function addCounter(type) {
+  return {
+    type: ADD_COUNTER,
+    payload: type
+  }
+}
+
+export function addRevealedCards() {
+  return {
+    type: ADD_REVEALED
+  }
+}
+
+export function resetRevealedCards() {
+  return {
+    type: RESET_REVEALED
+  }
+}
+
+export function retrieveCards(expansion) {
+  const encodedExpansion = encodeURIComponent(expansion);
+  const request = axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards/sets/${encodedExpansion}?collectible=1`, config)
+  .then((response) => {
+    return response;
+  }).catch((error) => {
+    throw error;
+  });
+  
+  return {
+    type: FETCH_CARDS,
+    payload: request
+  };
+}
+
+export function resetCardState() {
+  return {
+    type: RESET_CARDS
   }
 }
 

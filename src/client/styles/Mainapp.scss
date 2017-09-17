@@ -77,15 +77,123 @@ $nav-color: #263238;
       .pack-drop, .pack-glow {
         height: 100%;
         width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-repeat: no-repeat;
         background-position: center;     
       }
 
       .pack-drop {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         background-image: url(../images/bg.jpg);
+
+        .card-holder {
+          .cardContainer {
+            height: 307px;
+            width: 200px;
+            display: inline-block;
+            position: relative;
+            perspective: 800px;
+          }
+
+          #card0 {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -350px;
+            margin-left: -130px;
+          }
+
+          #card1 {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -279px;
+            margin-left: -332px;
+          }
+
+          #card2 {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -272px;
+            margin-left: 85px;
+          }
+
+          #card3 {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: 0px;
+            margin-left: -246px;
+          }
+
+          #card4 {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: 8px;
+            margin-left: -11px;
+          }
+
+          .cardGlow {
+            position: absolute;
+            top: 43px;
+            left: 27px;
+            height: 215px;
+            width: 145px;
+          }
+
+          .card {
+            border: none;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+          }
+
+          .card img {
+            margin: 0;
+            display: block;
+            position: absolute;
+            backface-visibility: hidden;
+          }
+
+          .card .back {
+            transform: rotateY( 180deg );
+          }
+
+          .card.flipped {
+            transform: rotateY( 180deg );
+          }
+
+          .front:hover {
+            transform: scale(1.1);
+          }
+
+          .done {
+            background-image: url('../images/done.png');
+            background-repeat: no-repeat;
+            height: 104px;
+            width: 175px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -60px;
+            margin-left: -110px;
+            z-index: 5;
+            opacity: 0;
+            display: none;
+          }
+
+          .visible {
+            opacity: 1;
+            transition: opacity 1.5s linear;
+          }
+        }
       }
 
       .pack-glow {
@@ -104,14 +212,13 @@ $nav-color: #263238;
         padding: 8px;
         overflow-y: auto;
         overflow-x: hidden;
-        width: 500px;
+        width: 215px;
 
         .clone {
           position: absolute;
           height: 212px;
           width: 155px;
           display: none;
-          background-image: url(../images/classic-pack.png);
         }
 
         .expansion-wrapper {

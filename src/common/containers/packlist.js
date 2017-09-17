@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { subtractCounter, addCounter, retrieveCards } from '../actions';
 import { packGrab, packDrop } from '../../client/soundExports';
 
 const packNames = [
@@ -55,25 +56,33 @@ class PackList extends Component {
 
               displayPack.style.display = "block";
 
-              if (true) {
-                // grab cards
-                packDrop.volume = .3;
-                packDrop.play();
+              if (parseInt(clone.style.top, 10) > parseInt(currentThis.props.packTop, 10) - 10
+                && parseInt(clone.style.left, 10) > parseInt(currentThis.props.packLeft, 10) - 10
+                && parseInt(clone.style.top, 10) < parseInt(currentThis.props.packTop, 10) + 10
+                && parseInt(clone.style.left, 10) < parseInt(currentThis.props.packLeft, 10) + 10) {
+                // packDrop.volume = .3;
+                // packDrop.play();
+
+                packList.style.pointerEvents = "none";
+
+                currentThis.props.retrieveCards(packNames[index].name);
               } else {
                 if (clone) {
+                  currentThis.props.addCounter(e.target.id);
                   packList.style.overflowY = "hidden";
                   clone.style.transition = "all 1s ease 0s";
-                  setDragTimer = setTimeout(() => {
-                    packList.style.overflowY = "auto";
-                    clone.style.display = "none";
-                    currentThis.setState({ packName: "" });
-                  }, 1000)
                 }
               }
 
               clone.style.zIndex = "102";
               clone.style.top = packTop + "px";
               clone.style.left = packLeft + "px";
+
+              setDragTimer = setTimeout(() => {
+                packList.style.overflowY = "auto";
+                clone.style.display = "none";
+                currentThis.setState({ packName: "" });
+              }, 1000);
             }
           });
         }(this));
@@ -82,44 +91,7 @@ class PackList extends Component {
   }
 
   // componentDidUpdate() {
-  //   const packList = this.refs["pack-list"];
-  //   if (packList.scrollTop > 0) {
-  //     for (let index in packNames) {
-  //       const displayPack = this.refs[`${packNames[index].type}-pack`];
-  //       if (displayPack !== undefined) {
-  //         let packTop = displayPack.getBoundingClientRect().top + packList.scrollTop;
-  //         let packLeft = displayPack.getBoundingClientRect().left;
-  //         console.log(displayPack.getBoundingClientRect().top, packList.scrollTop)
 
-  //         displayPack.addEventListener("mousedown", this.onMouseDown);
-
-  //         (function(currentPack) {
-  //           window.addEventListener("mouseup", function(e) {
-  //             if (e.target.id === packNames[index].type && e.which === 1) {
-  //               window.removeEventListener("mousemove", currentPack.movePack);
-
-  //               displayPack.style.display = "block";
-
-  //               const clone = currentPack.refs["clone"];
-
-  //               if (clone) {
-  //                 packList.style.overflowY = "hidden";
-  //                 clone.style.zIndex = "102";
-  //                 clone.style.top = packTop + "px";
-  //                 clone.style.left = packLeft + "px";
-  //                 clone.style.transition = "all 1s ease 0s";
-  //                 setDragTimer = setTimeout(() => {
-  //                   packList.style.overflowY = "auto";
-  //                   clone.style.display = "none";
-  //                   currentPack.setState({ packName: "" });
-  //                 }, 1000)
-  //               }
-  //             }
-  //           });
-  //         }(this));
-  //       }
-  //     }
-  //   }
   // }
 
   componentWillUnmount() {
@@ -136,8 +108,15 @@ class PackList extends Component {
 
   onMouseDown(e) {
     e.preventDefault();
-    if (e.which === 1) {
+    let draggable = false;
+    this.props.packs.map((data) => {
+      if (e.target.id === data.type && data.amount > 0) {
+        draggable = true;
+      }
+    })
+    if (e.which === 1 && draggable) {
       this.props.changeOnDrag(true);
+      this.props.subtractCounter(e.target.id);
       const pack = this.refs[`${e.target.id}-pack`];
       const packTop = pack.getBoundingClientRect().top;
       const packLeft = pack.getBoundingClientRect().left;
@@ -148,8 +127,8 @@ class PackList extends Component {
       clone.style.top = packTop + "px";
       clone.style.left = packLeft + "px";
 
-      packGrab.volume = .3;
-      packGrab.play();
+      // packGrab.volume = .3;
+      // packGrab.play();
 
 
       this.setState({ packName: pack.id, x_pos: e.clientX - clone.offsetLeft, y_pos: e.clientY - clone.offsetTop });
@@ -174,45 +153,6 @@ class PackList extends Component {
     clone.style.left = (e.clientX - this.state.x_pos) + "px";
   }
 
-  // componentDidUpdate() {
-  //   console.log('classic? update', this.refs["classic-pack"]);
-  // }
-
-  // componentDidMount() {
-  //   const pack = ReactDOM.findDOMNode(this.refs.pack);
-  //   const pack_hole = ReactDOM.findDOMNode(this.refs.pack_hole);
-  //   const background = ReactDOM.findDOMNode(this.refs.background);
-
-  //   pack_hole.style.top = "260px";
-  //   pack_hole.style.left = "707px";
-
-  //   pack.addEventListener('mouseover', this.onMouseOver);
-  //   pack.addEventListener('mouseout', this.onMouseOut);
-
-  //   pack.addEventListener('mousedown', this.onMouseDown);
-
-  //   window.addEventListener('mouseup', () => {
-  //     window.removeEventListener('mousemove', this.movePack);
-  //     background.style.opacity = 1;
-  //     if (parseInt(pack.style.top) > parseInt(pack_hole.style.top) - 10
-  //       && parseInt(pack.style.left) > parseInt(pack_hole.style.top) - 10
-  //       && parseInt(pack.style.top) < parseInt(pack_hole.style.top) + 10
-  //       && parseInt(pack.style.left) < parseInt(pack.style.left) + 10) {
-  //       this.props.fetchCardInformation(ReactDOM.findDOMNode(this.refs.select).value);
-  //       pack.style.pointerEvents = "none";
-  //       // play the pack opening video
-  //       ReactDOM.findDOMNode(this.refs.pack_open).style.display = 'block';
-  //       this.refs.pack_open.play();
-  //       window.setTimeout(this.setVisible, 5000);
-  //     } else {
-  //       // play unselecting pack video
-  //       pack.style.transition = "all 1s ease 0s";
-  //     }
-  //     pack.style.top = "247px";
-  //     pack.style.left = "200px";
-  //   });
-  // }
-
   renderPacks() {
     const packList = [];
       this.props.packs.map((data) => {
@@ -233,7 +173,7 @@ class PackList extends Component {
 
   render() {
     return (
-      <div ref="pack-list" className="pack-list">
+      <div ref="pack-list" id="pack-list" className="pack-list">
         {this.renderPacks()}
         <div id={this.state.packName} ref="clone" className="clone" />
       </div>
@@ -245,4 +185,4 @@ function mapStateToProps(state) {
   return { format: state.app.formatState, packs: state.app.packsState };
 }
 
-export default connect(mapStateToProps)(PackList);
+export default connect(mapStateToProps, { subtractCounter, addCounter, retrieveCards })(PackList);

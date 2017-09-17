@@ -47,13 +47,91 @@
       .sealed-app .sealed-main .main-sealed .pack-drop, .sealed-app .sealed-main .main-sealed .pack-glow {
         height: 100%;
         width: 100%;
-        background-repeat: no-repeat;
-        background-position: center; }
-      .sealed-app .sealed-main .main-sealed .pack-drop {
         display: flex;
         align-items: center;
         justify-content: center;
+        background-repeat: no-repeat;
+        background-position: center; }
+      .sealed-app .sealed-main .main-sealed .pack-drop {
         background-image: url(../images/bg.jpg); }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .cardContainer {
+          height: 307px;
+          width: 200px;
+          display: inline-block;
+          position: relative;
+          perspective: 800px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder #card0 {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: -350px;
+          margin-left: -130px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder #card1 {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: -279px;
+          margin-left: -332px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder #card2 {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: -272px;
+          margin-left: 85px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder #card3 {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: 0px;
+          margin-left: -246px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder #card4 {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: 8px;
+          margin-left: -11px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .cardGlow {
+          position: absolute;
+          top: 43px;
+          left: 27px;
+          height: 215px;
+          width: 145px; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .card {
+          border: none;
+          transform-style: preserve-3d;
+          transition: transform 1s; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .card img {
+          margin: 0;
+          display: block;
+          position: absolute;
+          backface-visibility: hidden; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .card .back {
+          transform: rotateY(180deg); }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .card.flipped {
+          transform: rotateY(180deg); }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .front:hover {
+          transform: scale(1.1); }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .done {
+          background-image: url("../images/done.png");
+          background-repeat: no-repeat;
+          height: 104px;
+          width: 175px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin-top: -60px;
+          margin-left: -110px;
+          z-index: 5;
+          opacity: 0;
+          display: none; }
+        .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .visible {
+          opacity: 1;
+          transition: opacity 1.5s linear; }
       .sealed-app .sealed-main .main-sealed .pack-glow {
         background-image: url(../images/bg-glow.png); }
       .sealed-app .sealed-main .main-sealed .pack-slot {
@@ -66,13 +144,12 @@
         padding: 8px;
         overflow-y: auto;
         overflow-x: hidden;
-        width: 500px; }
+        width: 215px; }
         .sealed-app .sealed-main .main-sealed .pack-list .clone {
           position: absolute;
           height: 212px;
           width: 155px;
-          display: none;
-          background-image: url(../images/classic-pack.png); }
+          display: none; }
         .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper {
           position: relative;
           width: 155px;
