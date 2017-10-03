@@ -112,7 +112,6 @@ class PackList extends Component {
       const pack = this.refs[`${e.target.id}-pack`];
       const packTop = pack.getBoundingClientRect().top;
       const packLeft = pack.getBoundingClientRect().left;
-      // pack.style.display = "none";
 
       const clone = this.refs["clone"];
       clone.style.display = "block";
