@@ -22,9 +22,8 @@ class PackDrop extends Component {
     if (packSlot !== undefined) {
       const packTop = packSlot.getBoundingClientRect().top;
       const packLeft = packSlot.getBoundingClientRect().left;
-      this.setState({ packTop: packTop, packLeft: packLeft });
+      this.setState({ onDrag: bool, packTop: packTop, packLeft: packLeft });
     }
-    this.setState({ onDrag: bool });
   }
 
   /* BUG
@@ -32,11 +31,19 @@ class PackDrop extends Component {
   */
 
   render() {
+    let drop, glow;
+    if (this.state.onDrag) {
+      drop = "invisible";
+      glow = "visible";
+    } else {
+      drop = "visible";
+      glow = "invisible";
+    }
     return (
       <div className="main-sealed">
-        {this.state.packTop === "" ? <PackList changeOnDrag={this.changeOnDrag} /> : <PackList packTop={this.state.packTop} packLeft={this.state.packLeft} changeOnDrag={this.changeOnDrag} />}
-        {!this.state.onDrag ? <div className="pack-drop">{this.props.cards.length === 5 ? <CardHolder cards={this.props.cards} /> : null}</div> : null}
-        {this.state.onDrag ? <div className="pack-glow"><div ref="pack-slot" className="pack-slot"></div></div> : null}
+        <PackList packTop={this.state.packTop} packLeft={this.state.packLeft} changeOnDrag={this.changeOnDrag} />
+        <div className={drop + " pack-drop"}>{this.props.cards.length === 5 ? <CardHolder cards={this.props.cards} /> : null}</div>
+        <div className={glow + " pack-glow"}><div ref="pack-slot" className="pack-slot"></div></div>
       </div>
     );
   }

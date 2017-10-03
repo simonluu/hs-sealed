@@ -52,6 +52,10 @@
         justify-content: center;
         background-repeat: no-repeat;
         background-position: center; }
+      .sealed-app .sealed-main .main-sealed .invisible {
+        display: none; }
+      .sealed-app .sealed-main .main-sealed .visible {
+        display: flex; }
       .sealed-app .sealed-main .main-sealed .pack-drop {
         background-image: url(../images/bg.jpg); }
         .sealed-app .sealed-main .main-sealed .pack-drop .card-holder .cardContainer {
@@ -150,6 +154,21 @@
           height: 212px;
           width: 155px;
           display: none; }
+        .sealed-app .sealed-main .main-sealed .pack-list .pack, .sealed-app .sealed-main .main-sealed .pack-list .pack-next, .sealed-app .sealed-main .main-sealed .pack-list .adventure, .sealed-app .sealed-main .main-sealed .pack-list .adventure-next {
+          flex-shrink: 0; }
+        .sealed-app .sealed-main .main-sealed .pack-list .pack, .sealed-app .sealed-main .main-sealed .pack-list .pack-next {
+          height: 212px;
+          width: 155px; }
+        .sealed-app .sealed-main .main-sealed .pack-list .adventure, .sealed-app .sealed-main .main-sealed .pack-list .adventure-next {
+          width: 142px; }
+        .sealed-app .sealed-main .main-sealed .pack-list .pack, .sealed-app .sealed-main .main-sealed .pack-list .adventure {
+          position: relative;
+          z-index: 102; }
+        .sealed-app .sealed-main .main-sealed .pack-list .pack-next, .sealed-app .sealed-main .main-sealed .pack-list .adventure-next {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 101; }
         .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper {
           position: relative;
           width: 155px;
@@ -159,23 +178,7 @@
             position: relative;
             top: 0;
             left: 0;
-            height: 212px;
             z-index: 100; }
-            .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack-next, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .adventure, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .adventure-next {
-              flex-shrink: 0; }
-            .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack-next {
-              height: 212px;
-              width: 155px; }
-            .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .adventure, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .adventure-next {
-              width: 142px; }
-            .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .adventure {
-              position: relative;
-              z-index: 102; }
-            .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack-next, .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .adventure-next {
-              position: absolute;
-              top: 0;
-              left: 0;
-              z-index: 101; }
             .sealed-app .sealed-main .main-sealed .pack-list .expansion-wrapper .pack-wrapper .pack-counter {
               display: flex;
               align-items: center;
@@ -258,6 +261,9 @@
     .sealed-app .draft-nav .new-draft-button, .sealed-app .draft-nav .draft-tabs {
       display: flex;
       justify-content: center; }
+    .sealed-app .draft-nav .draft-list {
+      height: 84vh;
+      overflow: auto; }
     .sealed-app .draft-nav .tab-link {
       display: inline-block;
       margin: 0 5px; }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import _ from 'lodash';
 
 import { setDraftState, setTabState, retrieveDrafts, retrieveDraft, deleteDraft } from '../actions';
 
@@ -31,6 +30,7 @@ class Draft extends Component {
   // on click functions
   createNewDraft() {
     this.props.setDraftState("pre-draft");
+    this.props.setTabState(false);
   }
 
   draftClick(id) {
@@ -82,8 +82,6 @@ class Draft extends Component {
     const duplicates = {};
     const unique = [];
 
-    console.log(this.props.packList)
-
     // count duplicates
     this.props.packList.map((card) => {
       if (!duplicates.hasOwnProperty(card.name)) {
@@ -125,7 +123,7 @@ class Draft extends Component {
           {this.props.draftState === "drafting" ? <div onClick={() => this.changeTab(true)}>Current Draft</div> : null}
         </div>
 
-        {this.props.tabState ? <div>{this.renderCurrentDraft()}</div> : <div>{this.renderListOfDrafts()}</div>}
+        {this.props.tabState ? <div className="draft-list">{this.renderCurrentDraft()}</div> : <div>{this.renderListOfDrafts()}</div>}
       </div>
     );
   }

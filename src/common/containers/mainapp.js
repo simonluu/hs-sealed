@@ -13,11 +13,9 @@ import '../../client/styles/Mainapp.css';
 class Mainapp extends Component {
   componentDidUpdate() {
     if (this.props.app.draftState !== "decking") {
-      let packs = false;
+      let packs = true;
       this.props.app.packsState.map((data) => {
-        if (data.amount === 0) {
-          packs = true;
-        } else {
+        if (data.amount !== 0) {
           packs = false;
         }
         return null;

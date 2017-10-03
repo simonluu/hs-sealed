@@ -36,7 +36,6 @@ export const ON_UNMOUNT = 'ON_UNMOUNT';
 
 export const DRAFT_STATE = 'DRAFT_STATE';
 export const TAB_STATE = 'TAB_STATE';
-export const SET_EXP = 'SET_EXP';
 export const SUBTRACT_COUNTER = 'SUBTRACT_COUNTER';
 export const ADD_COUNTER = 'ADD_COUNTER';
 export const UPDATE_COUNTER = 'UPDATE_COUNTER';
@@ -113,13 +112,6 @@ export function setTabState(state) {
   }
 }
 
-export function setExpansion(state) {
-  return {
-    type: SET_EXP,
-    payload: state,
-  }
-}
-
 export function subtractCounter(type) {
   return {
     type: SUBTRACT_COUNTER,
@@ -163,7 +155,7 @@ export function resetRevealedCards() {
   }
 }
 
-export function retrieveCards(expansion) {
+export function retrieveCards(state, expansion) {
   const encodedExpansion = encodeURIComponent(expansion);
   const request = axios.get(`https://omgvamp-hearthstone-v1.p.mashape.com/cards/sets/${encodedExpansion}?collectible=1`, config)
   .then((response) => {
@@ -175,6 +167,7 @@ export function retrieveCards(expansion) {
   return {
     type: FETCH_CARDS,
     payload: request,
+    state: state,
   };
 }
 

@@ -7,7 +7,6 @@ import {
   ON_UNMOUNT,
   DRAFT_STATE,
   TAB_STATE,
-  SET_EXP,
   SUBTRACT_COUNTER,
   ADD_COUNTER,
   UPDATE_COUNTER,
@@ -82,8 +81,6 @@ function applicationReducer(state = { draftState: null, tabState: false, formatS
       return Object.assign({}, state, { draftState: action.payload });
     case TAB_STATE:
       return Object.assign({}, state, { tabState: action.payload });
-    case SET_EXP:
-      return Object.assign({}, state, { expState: action.payload });
     case SUBTRACT_COUNTER:
       return Object.assign({}, state, { packsState: state.packsState.map((data) => data.type === action.payload ? { ...data, amount: data.amount - 1 } : data) });
     case ADD_COUNTER:
@@ -92,7 +89,7 @@ function applicationReducer(state = { draftState: null, tabState: false, formatS
       return Object.assign({}, state, { packsState: action.payload.data.packs, packList: action.payload.data.cards });
     case FETCH_CARDS:
       const cards = fetchCardsHelper(action.payload.data);
-      return Object.assign({}, state, { cardState: cards });
+      return Object.assign({}, state, { expState: action.state, cardState: cards });
     case RESET_CARDS:
       return Object.assign({}, state, { cardState: [] });
     case ADD_REVEALED:
@@ -182,7 +179,7 @@ function fetchCardsHelper(data) {
       } else if (rarity <= .9107 && rarity > .6929) {
         // adds rare card
         index = Math.floor(Math.random() * rare.length);
-        card.name = common[index].name;
+        card.name = rare[index].name;
         card.rarity = rare[index].rarity;
         card.img = rare[index].img;
       } else if (rarity <= .9556 && rarity > .9107) {

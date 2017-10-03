@@ -84,6 +84,14 @@ $nav-color: #263238;
         background-position: center;     
       }
 
+      .invisible {
+        display: none;
+      }
+
+      .visible {
+        display: flex;
+      }
+
       .pack-drop {
         background-image: url(../images/bg.jpg);
 
@@ -221,6 +229,31 @@ $nav-color: #263238;
           display: none;
         }
 
+        .pack, .pack-next, .adventure, .adventure-next {
+          flex-shrink: 0;
+        }
+
+        .pack, .pack-next {
+          height: 212px;
+          width: 155px;
+        }
+
+        .adventure, .adventure-next {
+          width: 142px;
+        }
+
+        .pack, .adventure {
+          position:relative;
+          z-index: 102;
+        }
+
+        .pack-next, .adventure-next {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 101;
+        }
+
         .expansion-wrapper {
           position: relative;
           width: 155px;
@@ -231,33 +264,7 @@ $nav-color: #263238;
             position: relative;
             top: 0;
             left: 0;
-            height: 212px;
             z-index: 100;
-
-            .pack, .pack-next, .adventure, .adventure-next {
-              flex-shrink: 0;
-            }
-
-            .pack, .pack-next {
-              height: 212px;
-              width: 155px;
-            }
-
-            .adventure,.adventure-next {
-              width: 142px;
-            }
-
-            .pack, .adventure {
-              position:relative;
-              z-index: 102;
-            }
-
-            .pack-next, .adventure-next {
-              position: absolute;
-              top: 0;
-              left: 0;
-              z-index: 101;
-            }
 
             .pack-counter {
               display: flex;
@@ -399,6 +406,11 @@ $nav-color: #263238;
     .new-draft-button, .draft-tabs {
       display: flex;
       justify-content: center;
+    }
+
+    .draft-list {
+      height: 84vh;
+      overflow: auto;
     }
 
     .tab-link {
