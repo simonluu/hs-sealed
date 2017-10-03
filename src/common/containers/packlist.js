@@ -60,6 +60,7 @@ class PackList extends Component {
                       packList.style.overflowY = "hidden";
                       clone.style.transition = "all 1s ease 0s";
                     }
+                    return null;
                   });
                 }
 
@@ -94,6 +95,7 @@ class PackList extends Component {
 
         displayPack.removeEventListener("mousedown", this.onMouseDown);
       }
+      return null;
     });
   }
 

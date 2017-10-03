@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import PackList from '../containers/packlist';
+import PackList from './packlist';
 import CardHolder from './cardholder';
 
 class PackDrop extends Component {

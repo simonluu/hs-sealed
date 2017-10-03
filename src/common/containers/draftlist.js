@@ -27,6 +27,13 @@ class Draft extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const list = this.refs["list"];
+    if (list) {
+      list.scrollTop = list.scrollHeight;
+    }
+  }
+
   // on click functions
   createNewDraft() {
     this.props.setDraftState("pre-draft");
@@ -83,13 +90,14 @@ class Draft extends Component {
     const unique = [];
 
     // count duplicates
-    this.props.packList.map((card) => {
+    this.props.cardList.map((card) => {
       if (!duplicates.hasOwnProperty(card.name)) {
         duplicates[card.name] = 1;
         unique.push(card);
       } else {
         duplicates[card.name] += 1;
       }
+      return null;
     });
 
     unique.map((card, i) => {
@@ -123,14 +131,14 @@ class Draft extends Component {
           {this.props.draftState === "drafting" ? <div onClick={() => this.changeTab(true)}>Current Draft</div> : null}
         </div>
 
-        {this.props.tabState ? <div className="draft-list">{this.renderCurrentDraft()}</div> : <div>{this.renderListOfDrafts()}</div>}
+        {this.props.tabState ? <div ref="list" className="draft-list">{this.renderCurrentDraft()}</div> : <div>{this.renderListOfDrafts()}</div>}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { userId: state.userInfo.userId, drafts: state.userInfo.drafts, tabState: state.app.tabState, draftState: state.app.draftState, packList: state.app.packList };
+  return { userId: state.userInfo.userId, drafts: state.userInfo.drafts, tabState: state.app.tabState, draftState: state.app.draftState, cardList: state.app.cardList };
 }
 
 export default connect(mapStateToProps, { setDraftState, setTabState, retrieveDrafts, retrieveDraft, deleteDraft })(Draft);

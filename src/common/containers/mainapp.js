@@ -5,22 +5,22 @@ import Topnav from './topnav';
 import DraftList from './draftlist';
 import Welcome from './welcome';
 import DraftSettings from './draftsettings';
-import PackDrop from '../components/packdrop';
-import Statistics from '../components/statistics';
+import PackDrop from './packdrop';
+import Statistics from './statistics';
 
 import '../../client/styles/Mainapp.css';
 
 class Mainapp extends Component {
   componentDidUpdate() {
     if (this.props.app.draftState !== "decking") {
-      let packs = true;
+      let packs = [];
       this.props.app.packsState.map((data) => {
-        if (data.amount !== 0) {
-          packs = false;
+        if (data.amount === 0) {
+          packs.push(true);
         }
         return null;
       });
-      if (packs) {
+      if (packs.length === this.props.app.packsState.length && packs.length !== 0) {
         // call draftState change
         // this.props.updateDraftState()
         console.log('change draftState')
@@ -43,7 +43,7 @@ class Mainapp extends Component {
         <div className="sealed-app">
           <div className="sealed-main">
             {centerApp}
-            <Statistics />
+            {this.props.app.draftState === "drafting" ? <Statistics /> : null}
           </div>
           <DraftList />
         </div>

@@ -69,14 +69,14 @@ function UserReducer(state = { userId: null, draftId: null, drafts: [] }, action
   }
 }
 
-function applicationReducer(state = { draftState: null, tabState: false, formatState: null, expState: null, packsState: [], cardState: [], revealed: 0, packList: [] }, action) {
+function applicationReducer(state = { draftState: null, tabState: false, formatState: null, expState: null, packsState: [], cardState: [], revealed: 0, cardList: [] }, action) {
   switch(action.type) {
     case CREATE_DRAFT:
     case RETRIEVE_DRAFT:
       const data = action.payload.data;
-      return Object.assign({}, state, { draftState: data.state, tabState: true, formatState: data.format, packsState: data.packs, cardState: [], revealed: 0, packList: data.cards });
+      return Object.assign({}, state, { draftState: data.state, tabState: true, formatState: data.format, packsState: data.packs, cardState: [], revealed: 0, cardList: data.cards });
     case DELETE_DRAFT:
-      return Object.assign({}, state, { draftState: null, tabState: false, formatState: null, packsState: [], cardState: [], revealed: 0, packList: [] });
+      return Object.assign({}, state, { draftState: null, tabState: false, formatState: null, packsState: [], cardState: [], revealed: 0, cardList: [] });
     case DRAFT_STATE:
       return Object.assign({}, state, { draftState: action.payload });
     case TAB_STATE:
@@ -86,18 +86,18 @@ function applicationReducer(state = { draftState: null, tabState: false, formatS
     case ADD_COUNTER:
       return Object.assign({}, state, { packsState: state.packsState.map((data) => data.type === action.payload ? { ...data, amount: data.amount + 1 } : data) });
     case UPDATE_COUNTER:
-      return Object.assign({}, state, { packsState: action.payload.data.packs, packList: action.payload.data.cards });
+      return Object.assign({}, state, { packsState: action.payload.data.packs, cardList: action.payload.data.cards });
     case FETCH_CARDS:
       const cards = fetchCardsHelper(action.payload.data);
       return Object.assign({}, state, { expState: action.state, cardState: cards });
     case RESET_CARDS:
       return Object.assign({}, state, { cardState: [] });
     case ADD_REVEALED:
-      return Object.assign({}, state, { revealed: state.revealed + 1, packList: [ ...state.packList, action.payload ] });
+      return Object.assign({}, state, { revealed: state.revealed + 1, cardList: [ ...state.cardList, action.payload ] });
     case RESET_REVEALED:
       return Object.assign({}, state, { revealed: 0 });
     case LOG_OUT:
-      return Object.assign({}, state, { draftState: null, tabState: false, formatState: null, expState: null, packsState: [], cardState: [], revealed: 0, packList: [] });
+      return Object.assign({}, state, { draftState: null, tabState: false, formatState: null, expState: null, packsState: [], cardState: [], revealed: 0, cardList: [] });
     default:
       return state;
   }
@@ -115,14 +115,18 @@ function fetchCardsHelper(data) {
 
       let card = {
         name: data[index].name,
-        type: "regular",
+        type: "",
+        cost: 0,
+        style: "regular",
         rarity: "Common",
         img: "",
       }
 
       if (data[index].type !== "Hero") {
+        card.type = data[index].type;
+        card.cost = data[index].cost;
         if (chanceOfGolden > .99) {
-          card.type = "golden";
+          card.style = "golden";
           card.img = data[index].imgGold;
         } else {
           card.img = data[index].img;
@@ -157,7 +161,9 @@ function fetchCardsHelper(data) {
 
       let card = {
         name: "",
-        type: "regular",
+        type: "",
+        cost: 0,
+        style: "regular",
         rarity: "Common",
         img: "",
       }
@@ -175,6 +181,8 @@ function fetchCardsHelper(data) {
         index = Math.floor(Math.random() * common.length);
         card.name = common[index].name;
         card.img = common[index].img;
+        card.type = common[index].type;
+        card.cost = common[index].cost;
         commonCount++;
       } else if (rarity <= .9107 && rarity > .6929) {
         // adds rare card
@@ -182,46 +190,60 @@ function fetchCardsHelper(data) {
         card.name = rare[index].name;
         card.rarity = rare[index].rarity;
         card.img = rare[index].img;
+        card.type = rare[index].type;
+        card.cost = rare[index].cost;
       } else if (rarity <= .9556 && rarity > .9107) {
         // adds epic card
         index = Math.floor(Math.random() * epic.length);
         card.name = epic[index].name;
         card.rarity = epic[index].rarity;
         card.img = epic[index].img;
+        card.type = epic[index].type;
+        card.cost = epic[index].cost;
       } else if (rarity <= .9658 && rarity > .9556) {
         // adds legendary card
         index = Math.floor(Math.random() * legendary.length);
         card.name = legendary[index].name;
         card.rarity = legendary[index].rarity;
         card.img = legendary[index].img;
+        card.type = legendary[index].type;
+        card.cost = legendary[index].cost;
       } else if (rarity <= .9822 && rarity > .9658) {
         // adds golden common card
         index = Math.floor(Math.random() * common.length);
         card.name = common[index].name;
-        card.type = "golden";
+        card.style = "golden";
         card.img = common[index].imgGold;
+        card.type = common[index].type;
+        card.cost = common[index].cost;
         commonCount++;
       } else if (rarity <= .9969 && rarity > .9822) {
         // adds golden rare card
         index = Math.floor(Math.random() * rare.length);
         card.name = rare[index].name;
-        card.type = "golden";
+        card.style = "golden";
         card.rarity = rare[index].rarity;
         card.img = rare[index].imgGold;
+        card.type = rare[index].type;
+        card.cost = rare[index].cost;
       } else if (rarity <= .9991 && rarity > .9969) {
         // adds golden epic card
         index = Math.floor(Math.random() * epic.length);
         card.name = epic[index].name;
-        card.type = "golden";
+        card.style = "golden";
         card.rarity = epic[index].rarity;
         card.img = epic[index].imgGold;
+        card.type = epic[index].type;
+        card.cost = epic[index].cost;
       } else if (rarity <= 1 && rarity > .9991) {
-        // adds golden lgendary card
+        // adds golden legendary card
         index = Math.floor(Math.random() * legendary.length);
         card.name = legendary[index].name;
-        card.type = "golden";
+        card.style = "golden";
         card.rarity = legendary[index].rarity;
         card.img = legendary[index].imgGold;
+        card.type = legendary[index].type;
+        card.cost = legendary[index].cost;
       }
       fiveCards.push(card);
     }
